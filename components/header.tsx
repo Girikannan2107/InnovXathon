@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { EVENT_CONFIG } from '@/lib/event-config';
 import { isPlaceholderUrl, trackEvent } from '@/lib/utils';
-import { Menu, X, ExternalLink } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import PillNav from '@/components/pill-nav';
+import CosmicButton from '@/components/cosmic-button';
 
 interface HeaderProps {
   onOpenGuidelines?: () => void;
@@ -200,27 +201,24 @@ export default function Header({ onOpenGuidelines: _onOpenGuidelines, onOpenRegi
           {/* Header Action CTA */}
           <div className="header-actions">
             {isFormPlaceholder ? (
-              <a
+              <CosmicButton
                 href="#register"
-                className="btn-primary-glow btn-header"
+                variant="header"
                 onClick={handleRegisterClick}
                 data-analytics="header-register"
               >
-                <span>Register Now</span>
-                <span className="btn-icon">→</span>
-              </a>
+                Register Now
+              </CosmicButton>
             ) : (
-              <a
+              <CosmicButton
                 href={EVENT_CONFIG.links.googleFormUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary-glow btn-header"
+                variant="header"
+                isExternal={true}
                 onClick={handleRegisterClick}
                 data-analytics="header-register"
               >
-                <span>Register Now</span>
-                <ExternalLink className="btn-icon-svg" aria-hidden="true" size={14} />
-              </a>
+                Register Now
+              </CosmicButton>
             )}
 
             {/* Mobile Menu Toggle Button */}
@@ -291,30 +289,28 @@ export default function Header({ onOpenGuidelines: _onOpenGuidelines, onOpenRegi
 
           <div className="mobile-drawer-footer">
             {isFormPlaceholder ? (
-              <a
+              <CosmicButton
                 href="#register"
-                className="btn-primary-glow btn-mobile-full"
+                variant="primary"
                 onClick={(e) => {
                   setMobileMenuOpen(false);
                   handleRegisterClick(e);
                 }}
               >
                 Register & Submit Idea
-              </a>
+              </CosmicButton>
             ) : (
-              <a
+              <CosmicButton
                 href={EVENT_CONFIG.links.googleFormUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary-glow btn-mobile-full"
+                variant="primary"
+                isExternal={true}
                 onClick={(e) => {
                   setMobileMenuOpen(false);
                   handleRegisterClick(e);
                 }}
               >
-                <span>Register & Submit Idea</span>
-                <ExternalLink size={16} aria-hidden="true" />
-              </a>
+                Register & Submit Idea
+              </CosmicButton>
             )}
             <p className="mobile-drawer-note">
               16 Oct 2026 · KCE Coimbatore · 4 Members / Team

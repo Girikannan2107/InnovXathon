@@ -58,13 +58,15 @@ export default function ElectricBorder({
       }
     }
 
+    let isVisible = true;
+    let isPageActive = true;
     const padding = 6;
 
     const updateSize = () => {
       const rect = container.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.25);
 
       canvas.width = (width + padding * 2) * dpr;
       canvas.height = (height + padding * 2) * dpr;
@@ -78,6 +80,19 @@ export default function ElectricBorder({
       updateSize();
     });
     resizeObserver.observe(container);
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0.05 }
+    );
+    intersectionObserver.observe(container);
+
+    const handleVisibilityChange = () => {
+      isPageActive = document.visibilityState === 'visible';
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Build base rounded rectangle perimeter points
     const generatePerimeter = (w: number, h: number, r: number) => {
@@ -158,11 +173,11 @@ export default function ElectricBorder({
 
     let time = 0;
     const render = () => {
+      animId = requestAnimationFrame(render);
+      if (!isVisible || !isPageActive) return;
+
       time += 0.016 * speed;
-      if (width === 0 || height === 0) {
-        animId = requestAnimationFrame(render);
-        return;
-      }
+      if (width === 0 || height === 0) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
@@ -173,7 +188,6 @@ export default function ElectricBorder({
       const total = basePoints.length;
       if (total < 3) {
         ctx.restore();
-        animId = requestAnimationFrame(render);
         return;
       }
 
@@ -237,7 +251,6 @@ export default function ElectricBorder({
       ctx.restore();
 
       ctx.restore();
-      animId = requestAnimationFrame(render);
     };
 
     animId = requestAnimationFrame(render);
@@ -245,6 +258,8 @@ export default function ElectricBorder({
     return () => {
       cancelAnimationFrame(animId);
       resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [color, speed, chaos, thickness, style.borderRadius]);
 

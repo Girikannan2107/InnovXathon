@@ -17,6 +17,7 @@ import Results from '@/components/results';
 import Footer from '@/components/footer';
 import LegalModal from '@/components/legal-modal';
 import ParticleRegister from '@/app/particle-register';
+import CosmicSpaceBackground from '@/components/cosmic-space-background';
 import { EVENT_CONFIG } from '@/lib/event-config';
 import { isPlaceholderUrl, trackEvent } from '@/lib/utils';
 import { AlertCircle } from 'lucide-react';
@@ -44,6 +45,8 @@ export default function Home() {
 
   return (
     <>
+      <CosmicSpaceBackground />
+
       <Header
         onOpenGuidelines={() => {
           const el = document.getElementById('guidelines');

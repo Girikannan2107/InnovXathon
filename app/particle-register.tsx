@@ -15,9 +15,11 @@ export default function ParticleRegister({
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const stage = stageRef.current!;
-    const canvas = canvasRef.current!;
-    const button = buttonRef.current!;
+    const stage = stageRef.current;
+    const canvas = canvasRef.current;
+    const button = buttonRef.current;
+    if (!stage || !canvas || !button) return;
+
     const context = canvas.getContext('2d');
     if (!context) return;
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -25,14 +27,15 @@ export default function ParticleRegister({
       height = 0,
       animation = 0,
       progress = 0,
-      inView = false;
+      inView = false,
+      isPageActive = true;
     let needsMeasure = true;
     let seed = 731;
     const random = () => {
       seed = (seed * 16807) % 2147483647;
       return (seed - 1) / 2147483646;
     };
-    const particles = Array.from({ length: 1150 }, (_, index) => ({
+    const particles = Array.from({ length: 320 }, (_, index) => ({
       side: index % 2 ? 1 : -1,
       spread: random(),
       vertical: random(),
@@ -45,7 +48,7 @@ export default function ParticleRegister({
     function resize() {
       width = stage.clientWidth;
       height = stage.clientHeight;
-      const ratio = Math.min(devicePixelRatio || 1, 2);
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.25);
       canvas.width = width * ratio;
       canvas.height = height * ratio;
       context!.setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -67,8 +70,8 @@ export default function ParticleRegister({
       ink.fillText('Register', width / 2, height / 2 + 1);
       const pixels = ink.getImageData(0, 0, mask.width, mask.height).data;
       targets = [];
-      for (let y = 0; y < mask.height; y += 2) {
-        for (let x = 0; x < mask.width; x += 2) {
+      for (let y = 0; y < mask.height; y += 3) {
+        for (let x = 0; x < mask.width; x += 3) {
           if (pixels[(y * mask.width + x) * 4 + 3] > 60) targets.push({ x, y });
         }
       }
@@ -79,12 +82,10 @@ export default function ParticleRegister({
       const bounds = stage.getBoundingClientRect();
       const viewport = window.innerHeight;
       const center = bounds.top + bounds.height / 2;
-      // The same absolute scroll position always yields the same formation,
-      // so scrolling back retraces the particles rather than restarting a timer.
       progress = motion.matches
         ? 1
         : clamp((viewport * 0.94 - center) / (viewport * 0.43));
-      inView = bounds.bottom > 0 && bounds.top < viewport;
+      inView = bounds.bottom > -50 && bounds.top < viewport + 50;
       const reveal = smooth(clamp((progress - 0.8) / 0.2));
       stage.style.setProperty('--button-reveal', String(reveal));
       stage.style.setProperty('--button-blur', `${(1 - reveal) * 5}px`);
@@ -95,7 +96,16 @@ export default function ParticleRegister({
     const onScroll = () => {
       needsMeasure = true;
     };
+
+    const handleVisibilityChange = () => {
+      isPageActive = document.visibilityState === 'visible';
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     function draw(now: number) {
+      animation = requestAnimationFrame(draw);
+      if (!isPageActive) return;
+
       if (needsMeasure) measure();
       if (inView) {
         context!.clearRect(0, 0, width, height);
@@ -119,22 +129,18 @@ export default function ParticleRegister({
               arc * Math.sin(particle.phase) * height * 0.3;
             const alpha = (0.3 + particle.brightness * 0.65) * fade;
             context!.fillStyle = `rgba(226,239,255,${alpha * (0.82 + Math.sin(t * 1.3 + particle.phase) * 0.18)})`;
-            context!.shadowColor = '#b4d6ff';
-            context!.shadowBlur = particle.brightness > 0.88 ? 8 : 0;
             context!.beginPath();
             context!.arc(
               x,
               y,
-              particle.brightness > 0.95 ? 1.65 : 0.75,
+              particle.brightness > 0.95 ? 1.5 : 0.75,
               0,
               Math.PI * 2,
             );
             context!.fill();
           });
-          context!.shadowBlur = 0;
         }
       }
-      animation = requestAnimationFrame(draw);
     }
 
     stage.classList.add('particle-ready');
@@ -146,12 +152,14 @@ export default function ParticleRegister({
     motion.addEventListener('change', onScroll);
     resize();
     animation = requestAnimationFrame(draw);
+
     return () => {
       cancelAnimationFrame(animation);
       observer.disconnect();
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       motion.removeEventListener('change', onScroll);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       stage.classList.remove('particle-ready');
     };
   }, []);

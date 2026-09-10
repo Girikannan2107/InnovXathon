@@ -231,8 +231,8 @@ export const EVENT_CONFIG: EventConfiguration = {
     linkedinUrl: 'https://linkedin.com/company/innovxera',
   },
   links: {
-    // Official registration link placeholder. When set to placeholder, the UI safely disables or shows informative fallback.
-    googleFormUrl: 'REPLACE_WITH_OFFICIAL_GOOGLE_FORM_URL',
+    // Official registration link for InnovXathon 2026.
+    googleFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfNXPfvexSl6gFxhhMHbd8lVy6qWmKpZNhWU3LWADoq4lGweg/viewform?usp=dialog',
     guidelinesDocUrl: 'REPLACE_WITH_OFFICIAL_GUIDELINES_DOC_URL',
     slideTemplateUrl: 'REPLACE_WITH_OFFICIAL_SLIDE_TEMPLATE_URL',
     canonicalUrl: 'https://innovxathon.in',

@@ -12,10 +12,11 @@ export default function VenueContact() {
   return (
     <section
       ref={ref}
-      id="contact"
+      id="venue"
       className={`section-container venue-contact-section ${isRevealed ? 'section-revealed' : 'section-hidden'}`}
       aria-labelledby="venue-title"
     >
+      <div id="contact" className="sr-only" aria-hidden="true" />
       <div className="section-header">
         <span className="section-eyebrow">09 / THE COORDINATES & REACH</span>
         <h2 id="venue-title" className="section-title">
