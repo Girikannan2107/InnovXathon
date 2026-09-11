@@ -18,11 +18,85 @@ const CONFIG = {
 };
 
 const FORM_FIELDS = {
-  TEAM_NAME: ['team name', 'team_name', 'name of the team', 'team'],
-  LEADER_NAME: ['team leader full name', 'team leader name', 'leader name', 'full name of team leader', 'name of leader'],
-  LEADER_EMAIL: ['team leader email', 'team leader email id', 'leader email', 'email address', 'email id', 'email'],
-  COLLEGE: ['college / institution name', 'college name', 'institution name', 'college'],
-  IDEA_TITLE: ['idea title', 'title of idea', 'project title', 'title of the project', 'idea / project title'],
+  LEADER_NAME: [
+    'full name team leader',
+    'team leader full name',
+    'full name of team leader',
+    'team leader name',
+    'leader full name',
+    'leader name',
+    'name of team leader',
+    'name of leader',
+    'team leader',
+  ],
+  TEAM_NAME: [
+    'team name',
+    'name of the team',
+    'name of team',
+    'team_name',
+  ],
+  LEADER_EMAIL: [
+    'email',
+    'email address',
+    'team leader email',
+    'team leader email id',
+    'leader email',
+    'team leader email address',
+    'email id',
+  ],
+  LEADER_PHONE: [
+    'team leader mobile whatsapp number',
+    'team leader mobile number',
+    'team leader phone',
+    'leader phone',
+    'mobile number',
+    'contact number',
+    'phone number',
+    'phone',
+  ],
+  COLLEGE: [
+    'college',
+    'college institution name',
+    'college name',
+    'institution name',
+    'institution',
+    'name of college university',
+    'university college name',
+  ],
+  DEPARTMENT: [
+    'department',
+    'branch department',
+    'department branch',
+    'dept',
+    'branch',
+  ],
+  YEAR: [
+    'year',
+    'year of study',
+    'current year',
+  ],
+  IDEA_TITLE: [
+    'idea title',
+    'title of idea',
+    'project title',
+    'title of the project',
+    'idea project title',
+    'project name',
+    'idea name',
+  ],
+  PROBLEM_STATEMENT: [
+    'problem statement',
+    'problem description',
+    'problem statement context user pain points',
+    'description',
+    'problem',
+  ],
+  PROPOSED_SOLUTION: [
+    'proposed solution',
+    'solution summary',
+    'proposed solution value proposition',
+    'solution',
+  ],
 };
 
 function cleanHeader(header) {
@@ -33,6 +107,10 @@ function cleanHeader(header) {
     .trim();
 }
 
+function isTeamMemberCol(headerStr) {
+  return /team member \d+/i.test(headerStr) || /member \d+/i.test(headerStr);
+}
+
 function extractFormData(rowHeaders, rowValues, namedValues) {
   const headerMap = {};
   rowHeaders.forEach((h, idx) => {
@@ -40,11 +118,42 @@ function extractFormData(rowHeaders, rowValues, namedValues) {
   });
 
   function getByAliases(aliasList, defaultValue = '') {
+    // 1. Exact match in namedValues
     if (namedValues) {
-      for (const [key, val] of Object.entries(namedValues)) {
-        const cleanedKey = cleanHeader(key);
-        for (const alias of aliasList) {
-          if (cleanedKey === alias || cleanedKey.includes(alias)) {
+      for (const alias of aliasList) {
+        for (const [key, val] of Object.entries(namedValues)) {
+          const cleanedKey = cleanHeader(key);
+          if (isTeamMemberCol(cleanedKey)) continue;
+          if (cleanedKey === alias) {
+            const result = Array.isArray(val) ? val[0] : val;
+            if (result && String(result).trim() !== '') {
+              return String(result).trim();
+            }
+          }
+        }
+      }
+    }
+
+    // 2. Exact match in rowHeaders
+    for (const alias of aliasList) {
+      for (const [header, colIdx] of Object.entries(headerMap)) {
+        if (isTeamMemberCol(header)) continue;
+        if (header === alias) {
+          const val = rowValues[colIdx];
+          if (val !== undefined && val !== null && String(val).trim() !== '') {
+            return String(val).trim();
+          }
+        }
+      }
+    }
+
+    // 3. Fallback: Substring match
+    if (namedValues) {
+      for (const alias of aliasList) {
+        for (const [key, val] of Object.entries(namedValues)) {
+          const cleanedKey = cleanHeader(key);
+          if (isTeamMemberCol(cleanedKey)) continue;
+          if (cleanedKey.includes(alias)) {
             const result = Array.isArray(val) ? val[0] : val;
             if (result && String(result).trim() !== '') {
               return String(result).trim();
@@ -56,7 +165,8 @@ function extractFormData(rowHeaders, rowValues, namedValues) {
 
     for (const alias of aliasList) {
       for (const [header, colIdx] of Object.entries(headerMap)) {
-        if (header === alias || header.includes(alias)) {
+        if (isTeamMemberCol(header)) continue;
+        if (header.includes(alias)) {
           const val = rowValues[colIdx];
           if (val !== undefined && val !== null && String(val).trim() !== '') {
             return String(val).trim();
@@ -146,47 +256,66 @@ describe('InnovXathon 2026 — Automatic Email Confirmation Backend Tests', () =
     assert.equal(escaped, '&lt;script&gt;alert(&quot;hack&quot;)&lt;/script&gt; &amp; &#039;quotes&#039;');
   });
 
-  test('Fuzzy Form Data extraction handles varying Google Form header labels', () => {
+  test('REAL InnovXathon Form Data extraction correctly maps Team Leader, Team Name, and prevents Team Member 2/3/4 overwrites', () => {
     const headers = [
       'Timestamp',
+      'Email',
+      'Full Name (Team Leader)',
       'Team Name',
-      'Team Leader Full Name',
-      'Team Leader Email ID',
-      'College / Institution Name',
-      'Idea / Project Title'
+      'Team Member 2',
+      'Team Member 3',
+      'Team Member 4',
+      'College',
+      'Department',
+      'Year',
+      'I understand that I will have to pay $$ upon arrival',
+      'Idea Title',
+      'Description',
+      'Drive Link'
     ];
     const values = [
-      '2026-09-11 10:00:00',
-      'Apex Innovators',
-      'Rahul S',
-      'rahul@kce.ac.in',
-      'Karpagam College of Engineering',
-      'Autonomous Drone Navigation'
+      '9/11/2026 12:19:57',
+      '717823i207@kce.ac.in',
+      'Girikannan M P',
+      'UV',
+      'NAM',
+      'jee',
+      'deepti',
+      'KCE',
+      'AD',
+      'II',
+      'Yes',
+      'zyra',
+      'jklrtyuiopzxcvbnm,',
+      'https://drive.google.com/open?id=1a17OvfEJDPm1IoLCCR05dOZP25YRWIy2'
     ];
 
     const extracted = extractFormData(headers, values, null);
-    assert.equal(extracted.teamName, 'Apex Innovators');
-    assert.equal(extracted.leaderName, 'Rahul S');
-    assert.equal(extracted.leaderEmail, 'rahul@kce.ac.in');
-    assert.equal(extracted.college, 'Karpagam College of Engineering');
-    assert.equal(extracted.ideaTitle, 'Autonomous Drone Navigation');
+    assert.equal(extracted.leaderEmail, '717823i207@kce.ac.in');
+    assert.equal(extracted.leaderName, 'Girikannan M P');
+    assert.equal(extracted.teamName, 'UV');
+    assert.equal(extracted.college, 'KCE');
+    assert.equal(extracted.ideaTitle, 'zyra');
   });
 
   test('Fuzzy extraction also works with namedValues from Form Submit event', () => {
     const namedValues = {
-      'team_name': ['Quantum Minds'],
-      'Leader Name': ['Priya D'],
-      'Email Address': ['priya@gmail.com'],
-      'College': ['CIT Coimbatore'],
-      'Title of Idea': ['Smart Water Purification']
+      'Email': ['717823i207@kce.ac.in'],
+      'Full Name (Team Leader)': ['Girikannan M P'],
+      'Team Name': ['UV'],
+      'Team Member 2': ['NAM'],
+      'Team Member 3': ['jee'],
+      'Team Member 4': ['deepti'],
+      'College': ['KCE'],
+      'Idea Title': ['zyra']
     };
 
     const extracted = extractFormData([], [], namedValues);
-    assert.equal(extracted.teamName, 'Quantum Minds');
-    assert.equal(extracted.leaderName, 'Priya D');
-    assert.equal(extracted.leaderEmail, 'priya@gmail.com');
-    assert.equal(extracted.college, 'CIT Coimbatore');
-    assert.equal(extracted.ideaTitle, 'Smart Water Purification');
+    assert.equal(extracted.leaderEmail, '717823i207@kce.ac.in');
+    assert.equal(extracted.leaderName, 'Girikannan M P');
+    assert.equal(extracted.teamName, 'UV');
+    assert.equal(extracted.college, 'KCE');
+    assert.equal(extracted.ideaTitle, 'zyra');
   });
 
   test('Missing optional Idea Title falls back gracefully', () => {

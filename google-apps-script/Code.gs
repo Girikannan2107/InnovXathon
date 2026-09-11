@@ -73,84 +73,84 @@ const CONFIG = {
  * Field alias definitions to flexibly match Google Form header variations
  */
 const FORM_FIELDS = {
-  TEAM_NAME: [
-    'team name',
-    'team_name',
-    'name of the team',
-    'team'
-  ],
   LEADER_NAME: [
+    'full name team leader',
     'team leader full name',
-    'team leader name',
-    'leader name',
     'full name of team leader',
+    'team leader name',
     'leader full name',
+    'leader name',
+    'name of team leader',
     'name of leader',
     'team leader',
-    'full name',
-    'name'
+  ],
+  TEAM_NAME: [
+    'team name',
+    'name of the team',
+    'name of team',
+    'team_name',
   ],
   LEADER_EMAIL: [
+    'email',
+    'email address',
     'team leader email',
     'team leader email id',
     'leader email',
     'team leader email address',
-    'email address',
     'email id',
-    'email'
   ],
   LEADER_PHONE: [
-    'team leader mobile / whatsapp number',
+    'team leader mobile whatsapp number',
     'team leader mobile number',
     'team leader phone',
     'leader phone',
     'mobile number',
     'contact number',
     'phone number',
-    'phone'
+    'phone',
   ],
   COLLEGE: [
-    'college / institution name',
+    'college',
+    'college institution name',
     'college name',
     'institution name',
     'institution',
-    'college',
-    'name of college / university',
-    'university / college name',
-    'college/university'
+    'name of college university',
+    'university college name',
   ],
   DEPARTMENT: [
     'department',
-    'branch / department',
-    'department / branch',
+    'branch department',
+    'department branch',
     'dept',
-    'branch'
+    'branch',
   ],
   YEAR: [
-    'year of study',
     'year',
-    'current year'
+    'year of study',
+    'current year',
   ],
   IDEA_TITLE: [
     'idea title',
     'title of idea',
     'project title',
     'title of the project',
-    'idea / project title',
+    'idea project title',
     'project name',
-    'idea name'
+    'idea name',
   ],
   PROBLEM_STATEMENT: [
     'problem statement',
     'problem description',
-    'problem statement (context & user pain points)',
-    'problem'
+    'problem statement context user pain points',
+    'description',
+    'problem',
   ],
   PROPOSED_SOLUTION: [
     'proposed solution',
     'solution summary',
-    'proposed solution & value proposition',
-    'solution'
+    'proposed solution value proposition',
+    'solution',
   ],
 };
 
@@ -313,7 +313,7 @@ function onFormSubmit(e) {
 // ============================================================================
 
 /**
- * Extracts form field data from the submitted row using fuzzy header resolution.
+ * Extracts form field data from the submitted row using prioritized exact/fuzzy header resolution.
  */
 function extractFormData(sheet, rowValues, eventObj) {
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
@@ -322,14 +322,19 @@ function extractFormData(sheet, rowValues, eventObj) {
     headerMap[cleanHeader(h)] = idx;
   });
 
-  // Helper to extract by alias list
+  // Disallow team member 2/3/4 columns from matching leader or team name
+  function isTeamMemberCol(headerStr) {
+    return /team member \d+/i.test(headerStr) || /member \d+/i.test(headerStr);
+  }
+
   function getByAliases(aliasList, defaultValue = '') {
-    // 1. Try e.namedValues if present (Spreadsheet Form Submit event)
+    // 1. First priority: Exact match in eventObj.namedValues (Spreadsheet Form Submit event)
     if (eventObj && eventObj.namedValues) {
-      for (const [key, val] of Object.entries(eventObj.namedValues)) {
-        const cleanedKey = cleanHeader(key);
-        for (const alias of aliasList) {
-          if (cleanedKey === alias || cleanedKey.includes(alias)) {
+      for (const alias of aliasList) {
+        for (const [key, val] of Object.entries(eventObj.namedValues)) {
+          const cleanedKey = cleanHeader(key);
+          if (isTeamMemberCol(cleanedKey)) continue;
+          if (cleanedKey === alias) {
             const result = Array.isArray(val) ? val[0] : val;
             if (result && String(result).trim() !== '') {
               return String(result).trim();
@@ -339,10 +344,39 @@ function extractFormData(sheet, rowValues, eventObj) {
       }
     }
 
-    // 2. Try sheet header index match
+    // 2. Second priority: Exact match in Sheet Header row
     for (const alias of aliasList) {
       for (const [header, colIdx] of Object.entries(headerMap)) {
-        if (header === alias || header.includes(alias)) {
+        if (isTeamMemberCol(header)) continue;
+        if (header === alias) {
+          const val = rowValues[colIdx];
+          if (val !== undefined && val !== null && String(val).trim() !== '') {
+            return String(val).trim();
+          }
+        }
+      }
+    }
+
+    // 3. Third priority: Substring match (fallback only)
+    if (eventObj && eventObj.namedValues) {
+      for (const alias of aliasList) {
+        for (const [key, val] of Object.entries(eventObj.namedValues)) {
+          const cleanedKey = cleanHeader(key);
+          if (isTeamMemberCol(cleanedKey)) continue;
+          if (cleanedKey.includes(alias)) {
+            const result = Array.isArray(val) ? val[0] : val;
+            if (result && String(result).trim() !== '') {
+              return String(result).trim();
+            }
+          }
+        }
+      }
+    }
+
+    for (const alias of aliasList) {
+      for (const [header, colIdx] of Object.entries(headerMap)) {
+        if (isTeamMemberCol(header)) continue;
+        if (header.includes(alias)) {
           const val = rowValues[colIdx];
           if (val !== undefined && val !== null && String(val).trim() !== '') {
             return String(val).trim();
