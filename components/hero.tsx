@@ -113,7 +113,7 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
             <div className="unified-stat-pill pill-delay-2">
               <Users className="pill-icon text-[#ffb347]" size={15} aria-hidden="true" />
               <span className="pill-text">
-                <strong className="pill-value">4 Members</strong>{' '}
+                <strong className="pill-value">Up to 4 Members</strong>{' '}
                 <span className="pill-label">/ Team</span>
               </span>
             </div>
@@ -121,7 +121,7 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
             <div className="unified-stat-pill pill-delay-3">
               <Award className="pill-icon text-[#ff8a00]" size={15} aria-hidden="true" />
               <span className="pill-text">
-                <strong className="pill-value">30 Finalist</strong>{' '}
+                <strong className="pill-value">20 Finalist</strong>{' '}
                 <span className="pill-label">Teams</span>
               </span>
             </div>

@@ -32,7 +32,7 @@ This document outlines the specific configuration parameters in `lib/event-confi
 - **Registration Window:** 10 September 2026 — 10 October 2026 (11:59 PM IST)
 - **Shortlist Notification:** 12 October 2026 (6:00 PM IST)
 - **Total Prize Pool:** ₹50,000 (Winner: ₹25,000, Runner-up: ₹15,000, Second Runner-up: ₹10,000)
-- **Team Size:** Exactly 4 college students per team
+- **Team Size:** Up to 4 college students per team
 - **Shortlist Fee:** ₹500 per shortlisted team (Initial application is ₹0 Free)
 - **Venue:** Karpagam College of Engineering, Coimbatore, Tamil Nadu — 641032
 - **Organizer Email:** `innovxera@kce.ac.in`

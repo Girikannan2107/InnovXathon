@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: EVENT_CONFIG.links.canonicalUrl,
     title: `${EVENT_CONFIG.metadata.name} 2026 | National Student Ideathon`,
-    description: `${EVENT_CONFIG.metadata.tagline} ₹50,000 Prize Pool · 30 Finalist Teams · 16 October 2026 at KCE Coimbatore.`,
+    description: `${EVENT_CONFIG.metadata.tagline} ₹50,000 Prize Pool · 20 Finalist Teams · 16 October 2026 at KCE Coimbatore.`,
     siteName: 'INNOVXATHON 2026',
     images: [
       {

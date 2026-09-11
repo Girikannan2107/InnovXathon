@@ -46,6 +46,7 @@ export default function ParticleRegister({
     let targets: { x: number; y: number }[] = [];
 
     function resize() {
+      if (!stage || !canvas || !button) return;
       width = stage.clientWidth;
       height = stage.clientHeight;
       const ratio = Math.min(window.devicePixelRatio || 1, 1.25);
@@ -79,6 +80,7 @@ export default function ParticleRegister({
     }
 
     function measure() {
+      if (!stage || !button) return;
       const bounds = stage.getBoundingClientRect();
       const viewport = window.innerHeight;
       const center = bounds.top + bounds.height / 2;

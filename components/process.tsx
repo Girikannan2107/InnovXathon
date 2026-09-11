@@ -83,7 +83,7 @@ export default function Process() {
           <div className="callout-text-box">
             <strong>Important Clarification on Registration & Fees:</strong>
             <p>
-              Submitting your idea is 100% free. The {shortlistFee} confirmation fee is collected <em>only</em> from the 30 shortlisted teams after receiving the official selection letter, and covers the entire 4-member team.
+              Submitting your idea is 100% free. The {shortlistFee} confirmation fee is collected <em>only</em> from the 20 shortlisted teams after receiving the official selection letter, and covers the entire team (up to 4 members).
             </p>
           </div>
         </div>

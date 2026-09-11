@@ -21,8 +21,8 @@ export default function Header({ onOpenGuidelines: _onOpenGuidelines, onOpenRegi
 
   const navLinks = [
     { name: 'Overview', href: '#overview' },
-    { name: 'Timeline', href: '#timeline' },
     { name: 'Process', href: '#process' },
+    { name: 'Timeline', href: '#timeline' },
     { name: 'Prizes', href: '#prizes' },
     { name: 'Rules', href: '#rules' },
     { name: 'Guidelines', href: '#guidelines' },
@@ -54,7 +54,7 @@ export default function Header({ onOpenGuidelines: _onOpenGuidelines, onOpenRegi
 
   // IntersectionObserver to highlight current active section
   useEffect(() => {
-    const sectionIds = ['overview', 'timeline', 'process', 'prizes', 'rules', 'guidelines', 'judging', 'faq', 'contact'];
+    const sectionIds = ['overview', 'process', 'timeline', 'prizes', 'rules', 'guidelines', 'judging', 'faq', 'contact'];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -313,7 +313,7 @@ export default function Header({ onOpenGuidelines: _onOpenGuidelines, onOpenRegi
               </CosmicButton>
             )}
             <p className="mobile-drawer-note">
-              16 Oct 2026 · KCE Coimbatore · 4 Members / Team
+              16 Oct 2026 · KCE Coimbatore · Up to 4 Members / Team
             </p>
           </div>
         </div>

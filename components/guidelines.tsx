@@ -85,7 +85,7 @@ export default function Guidelines() {
             <Presentation size={24} className="text-[#6484ff]" aria-hidden="true" />
             <h3 className="panel-title">2. Grand Finale Pitch Guidelines</h3>
           </div>
-          <p className="panel-sub">On-stage delivery guidelines for the 30 shortlisted teams presenting at KCE.</p>
+          <p className="panel-sub">On-stage delivery guidelines for the 20 shortlisted teams presenting at KCE.</p>
 
           <div className="timing-spec-grid">
             <div className="spec-card">

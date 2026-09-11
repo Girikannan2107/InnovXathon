@@ -190,9 +190,9 @@ export const EVENT_CONFIG: EventConfiguration = {
     subTagline: 'National-Level Student Innovation Ideathon',
     format: 'Offline In-Person Ideathon',
     targetAudience: 'College & University Students across India',
-    teamSizeRule: 'Exactly 4 members per team',
+    teamSizeRule: 'Up to 4 members per team',
     teamSize: 4,
-    shortlistedTeamsCount: 30,
+    shortlistedTeamsCount: 20,
     totalPrizePool: 50000,
     currency: 'INR',
     initialRegistrationFee: 0,
@@ -267,7 +267,7 @@ export const EVENT_CONFIG: EventConfiguration = {
   rulesAndEligibility: {
     institutionEligibility: 'Open to bona fide undergraduate and postgraduate students from any recognized college or university in India.',
     studentEligibility: 'Students from all engineering, arts, science, and management departments are eligible.',
-    teamSizeRequirement: 'Each team must consist of exactly four (4) student members. No individual or non-four-member submissions are accepted.',
+    teamSizeRequirement: 'Each team may consist of up to four (4) student members. Cross-department and cross-college teams are welcome.',
     crossCollegeAllowed: true,
     crossDepartmentAllowed: true,
     facultyMentorRequired: false,
@@ -287,7 +287,7 @@ export const EVENT_CONFIG: EventConfiguration = {
   submissionRequirements: {
     formSubmissionIncludes: [
       'Team details & leader contact coordinates',
-      'All 4 team members’ full names, college IDs, departments & emails',
+      'All team members’ full names, college IDs, departments & emails (up to 4 members)',
       'Idea Title & Category Domain',
       'Problem Statement (Context & User Pain Points)',
       'Proposed Solution & Value Proposition',
@@ -300,7 +300,7 @@ export const EVENT_CONFIG: EventConfiguration = {
     requiredFields: [
       'Team Name',
       'Leader Email & Mobile',
-      'Member 1-4 Details',
+      'Team Members Details (Up to 4)',
       'Idea Title',
       'Problem Description',
       'Solution Summary',
@@ -395,7 +395,7 @@ export const EVENT_CONFIG: EventConfiguration = {
       title: 'Applications Open',
       dateDisplay: '10 SEP 2026',
       dateISO: '2026-09-10T00:00:00+05:30',
-      participantAction: 'Form a 4-member team and submit your idea pitch via the official Google Form.',
+      participantAction: 'Form a team of up to 4 members and submit your idea pitch via the official Google Form.',
       resultOrNext: 'Team leader receives automated submission receipt.',
       status: 'completed',
     },
@@ -416,7 +416,7 @@ export const EVENT_CONFIG: EventConfiguration = {
       dateDisplay: '12 OCT 2026',
       dateISO: '2026-10-12T18:00:00+05:30',
       participantAction: 'Check registered email for selection letter; pay ₹500 confirmation fee per team.',
-      resultOrNext: 'Slot confirmed for 30 finalist teams.',
+      resultOrNext: 'Slot confirmed for 20 finalist teams.',
       status: 'upcoming',
     },
     {
@@ -434,7 +434,7 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       stepNumber: 1,
       title: 'Form Your Team & Register',
-      description: 'Assemble exactly four students and submit your idea pitch deck through the official Google Form.',
+      description: 'Assemble a team of up to four students and submit your idea pitch deck through the official Google Form.',
       clarification: 'Registration is free for initial submission.',
     },
     {
@@ -451,15 +451,15 @@ export const EVENT_CONFIG: EventConfiguration = {
     },
     {
       stepNumber: 4,
-      title: 'Top 30 Teams Shortlisted',
-      description: 'Up to 30 selected teams receive an official selection notification and confirmation link on 12 October.',
+      title: 'Top 20 Teams Shortlisted',
+      description: 'Up to 20 selected teams receive an official selection notification and confirmation link on 12 October.',
       clarification: 'Shortlist published on website & sent via email.',
     },
     {
       stepNumber: 5,
       title: 'Confirm Slot (₹500 / Selected Team)',
-      description: 'Only shortlisted teams pay the ₹500 fee per team (not per participant) to confirm event-day attendance.',
-      clarification: 'Includes participant access and evaluation.',
+      description: 'If shortlisted, confirm your slot by completing the ₹500 team registration. Snacks and lunch are included for confirmed teams.',
+      clarification: 'Snacks and lunch included for confirmed teams.',
     },
     {
       stepNumber: 6,
@@ -527,12 +527,12 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       category: 'Prizes & Fees',
       question: 'Who needs to pay the ₹500 fee, and is it per team or per person?',
-      answer: 'The ₹500 fee is payable ONLY by the top 30 shortlisted teams who receive an official selection email on 12 October. It is ₹500 per team in total (not per person). Non-shortlisted applicants do not pay anything.',
+      answer: 'The ₹500 fee is payable ONLY by the top 20 shortlisted teams who receive an official selection email on 12 October. It is ₹500 per team in total (not per person). Non-shortlisted applicants do not pay anything.',
     },
     {
       category: 'Eligibility',
       question: 'Who is eligible to participate in INNOVXATHON 2026?',
-      answer: 'Any bona fide undergraduate or postgraduate student from any recognized university or college across India can participate. Teams must consist of exactly four members. Cross-department and cross-college teams are welcome.',
+      answer: 'Any bona fide undergraduate or postgraduate student from any recognized university or college across India can participate. Teams may consist of up to four members. Cross-department and cross-college teams are welcome.',
     },
     {
       category: 'Submissions',
@@ -558,11 +558,6 @@ export const EVENT_CONFIG: EventConfiguration = {
       category: 'Event Day',
       question: 'Where and when does the event take place?',
       answer: 'The event takes place on 16 October 2026 at Karpagam College of Engineering (KCE), Coimbatore. Reporting time is 9:00 AM IST sharp.',
-    },
-    {
-      category: 'Prizes & Fees',
-      question: 'Who owns the intellectual property (IP) of submitted ideas?',
-      answer: 'Participants retain 100% ownership of their ideas, code, designs, and intellectual property. The organizers, sponsors, and college claim no equity or ownership over participant innovations.',
     },
     {
       category: 'Event Day',

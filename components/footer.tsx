@@ -38,8 +38,8 @@ export default function Footer({ onOpenLegal }: FooterProps) {
           <h4 className="footer-heading">Navigation</h4>
           <ul className="footer-links-list">
             <li><a href="#overview">Event Overview</a></li>
-            <li><a href="#timeline">Important Dates</a></li>
             <li><a href="#process">Participant Roadmap</a></li>
+            <li><a href="#timeline">Important Dates</a></li>
             <li><a href="#prizes">Prize Breakdown</a></li>
             <li><a href="#rules">Eligibility & AI Rules</a></li>
             <li><a href="#guidelines">Deck & Pitch Specs</a></li>
@@ -69,7 +69,7 @@ export default function Footer({ onOpenLegal }: FooterProps) {
                 onClick={() => onOpenLegal('ip')}
               >
                 <FileCode size={14} aria-hidden="true" />
-                <span>100% IP Ownership Guarantee</span>
+                <span>IP Ownership Policy</span>
               </button>
             </li>
             <li>

@@ -32,7 +32,7 @@ All 28 specification steps and checklist requirements have been methodically com
 - **Skip-to-Content:** Accessible skip link targeting `#main-content`.
 
 ### C. High-Conversion Hero Section (`components/hero.tsx` & `components/countdown.tsx`)
-- **Above-the-Fold Clarity:** Event Date (16 Oct 2026), Venue (KCE Coimbatore), Team Rule (4 members), 30 Shortlisted Teams, and Total Prize Pool (₹50,000) are immediately visible.
+- **Above-the-Fold Clarity:** Event Date (16 Oct 2026), Venue (KCE Coimbatore), Team Rule (Up to 4 members), 20 Shortlisted Teams, and Total Prize Pool (₹50,000) are immediately visible.
 - **Dual Conversion CTAs:**
   1. *Register & Submit Idea* (`target="_blank" rel="noopener noreferrer" data-analytics="hero-register"`)
   2. *View Guidelines* (smooth scroll navigation to `#guidelines`)
@@ -44,7 +44,7 @@ All 28 specification steps and checklist requirements have been methodically com
 - Explicit role hierarchy: "ORGANIZED BY" (`INNOVXERA`), "INSTITUTIONAL PARTNER" (`KCE`), "INNOVATION PARTNER" (`KIC`), "SPONSOR" (`CIRCOR`).
 
 ### E. Comprehensive Event Sections
-- **Key Facts (`components/key-facts.tsx`):** 8 high-contrast cards summarizing pan-India eligibility, team size, ₹500 shortlist-only fee, and full IP retention.
+- **Key Facts (`components/key-facts.tsx`):** High-contrast cards summarizing pan-India eligibility, team size (up to 4), 20 finalist teams, and ₹500 shortlist-only fee.
 - **Participant Roadmap (`components/process.tsx`):** 8-stage numbered trajectory clarifying that the ₹500 fee is per shortlisted team, not per person.
 - **Timeline (`components/timeline.tsx`):** Semantic `<time datetime="...">` tags with Active, Completed, and Upcoming milestone badges.
 - **Prizes Podium (`components/prizes.tsx`):** Indian Rupee currency formatting (`Intl.NumberFormat('en-IN')`) with 1st, 2nd, and 3rd rank podium cards.
@@ -55,7 +55,7 @@ All 28 specification steps and checklist requirements have been methodically com
 - **Accessible FAQ Accordion (`components/faq.tsx`):** Keyboard operable buttons (`Enter`/`Space`), `aria-expanded`, `aria-controls`, and smooth CSS grid transitions.
 - **Venue Coordinates (`components/venue-contact.tsx`):** Full KCE address, reporting time (9:00 AM IST), verified Google Maps button, and clickable `tel:` and `mailto:` links.
 - **Results (`components/results.tsx`):** Clean fallback state showing scheduled publication (16 Oct 2026, 5:00 PM IST) with no fake winners.
-- **Trust & Legal Modal (`components/legal-modal.tsx` & `components/footer.tsx`):** Tabbed dialog covering Privacy Notice, 100% IP Ownership Guarantee, Campus Code of Conduct, AI Disclosure, and Grievance Escalation.
+- **Trust & Legal Modal (`components/legal-modal.tsx` & `components/footer.tsx`):** Tabbed dialog covering Privacy Notice, IP Ownership, Campus Code of Conduct, AI Disclosure, and Grievance Escalation.
 
 ### F. SEO, Social & Standards Compliance
 - OpenGraph tags, Twitter Card metadata, and Schema.org `Event` JSON-LD structured data in `app/layout.tsx`.

@@ -38,7 +38,7 @@ The project uses React, TypeScript, Vinext, Tailwind CSS, and Cloudflare Workers
 
 The official Google Form URL has not yet been supplied. The Register button currently displays a notice. Update its action in `app/page.tsx` once the URL is available.
 
-The detailed closing time, payment method/deadline and final screening procedure still require organizer confirmation. Content follows the supplied revised concept proposal: InnovXathon 2026, 16 October 2026, 9:00 AM, teams of four, up to 30 shortlisted teams, and proposed awards of INR 25,000 / 15,000 / 10,000.
+The detailed closing time, payment method/deadline and final screening procedure still require organizer confirmation. Content follows the supplied revised concept proposal: InnovXathon 2026, 16 October 2026, 9:00 AM, teams of up to four, up to 20 shortlisted teams, and proposed awards of INR 25,000 / 15,000 / 10,000.
 
 ## Package contents
 

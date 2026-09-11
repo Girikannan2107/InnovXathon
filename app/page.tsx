@@ -89,7 +89,7 @@ export default function Home() {
               <span className="section-title-gradient">something matter?</span>
             </h2>
             <p className="section-lead">
-              Four minds. One bold idea. An entirely new trajectory of possibilities.
+              Up to four minds. One bold idea. An entirely new trajectory of possibilities.
             </p>
           </div>
 

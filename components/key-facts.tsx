@@ -3,7 +3,7 @@
 import { EVENT_CONFIG } from '@/lib/event-config';
 import { formatINR } from '@/lib/utils';
 import { useScrollReveal } from '@/lib/use-scroll-reveal';
-import { Users, Trophy, MapPin, Sparkles, ShieldCheck, CreditCard, School, Layers } from 'lucide-react';
+import { Users, Trophy, MapPin, Sparkles, CreditCard, School, Layers } from 'lucide-react';
 import BorderGlow from '@/components/border-glow';
 
 export default function KeyFacts() {
@@ -20,9 +20,9 @@ export default function KeyFacts() {
     },
     {
       icon: Users,
-      title: 'Strict 4-Member Teams',
-      description: 'Every team must consist of exactly 4 student members. Cross-department and cross-college teams permitted.',
-      badge: '4 Students / Team',
+      title: 'Up to 4 Members / Team',
+      description: 'Teams may consist of up to 4 student members. Cross-department and cross-college teams permitted.',
+      badge: 'Up to 4 / Team',
     },
     {
       icon: Trophy,
@@ -32,9 +32,9 @@ export default function KeyFacts() {
     },
     {
       icon: Layers,
-      title: '30 Finalist Teams',
-      description: 'Top 30 teams from preliminary evaluation earn direct entry to pitch on stage at KCE.',
-      badge: 'Top 30 Selected',
+      title: '20 Finalist Teams',
+      description: 'Top 20 teams from preliminary evaluation earn direct entry to pitch on stage at KCE.',
+      badge: 'Top 20 Selected',
     },
     {
       icon: MapPin,
@@ -45,7 +45,7 @@ export default function KeyFacts() {
     {
       icon: CreditCard,
       title: 'Pay Only If Shortlisted',
-      description: `Initial application is ₹0 Free. The ${shortlistFee} fee applies strictly to the 30 shortlisted teams after selection.`,
+      description: `Initial application is ₹0 Free. The ${shortlistFee} fee applies strictly to the 20 shortlisted teams after selection.`,
       badge: 'Free Application',
     },
     {
@@ -53,12 +53,6 @@ export default function KeyFacts() {
       title: 'Ethical AI Transparency',
       description: 'AI tooling is welcomed for research and prototyping, provided all usage is transparently disclosed.',
       badge: 'AI Policy',
-    },
-    {
-      icon: ShieldCheck,
-      title: '100% IP Retained',
-      description: 'Participants maintain full, exclusive ownership of all code, intellectual property, and pitch materials.',
-      badge: 'Full Ownership',
     },
   ];
 
