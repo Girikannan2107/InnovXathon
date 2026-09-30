@@ -43,7 +43,7 @@ The original codebase had an evocative, futuristic black & star-field aesthetic 
 2. **Missing Role Tags:** Unclear distinction between "Organized by", "Supported by", and "Institutional Partners".
 
 ### F. Data Integrity & Mathematics Validation
-1. **Prize Pool Integrity:** No programmatic validation verifying that individual awards (₹25,000 + ₹15,000 + ₹10,000) equal the stated total prize pool (₹50,000).
+1. **Prize Pool Integrity:** Validate that the total prize pool equals the stated ₹50,000 without unverified rank-wise allocations.
 2. **Judging Weights:** No validation confirming that evaluation criteria weights sum up to exactly 100%.
 
 ### G. SEO, Performance & Security

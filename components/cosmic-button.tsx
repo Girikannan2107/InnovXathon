@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { Sparkles, ArrowRight, ExternalLink } from 'lucide-react';
+import { Sparkles, ExternalLink } from 'lucide-react';
 
 interface CosmicButtonProps {
   href?: string;
@@ -30,60 +30,68 @@ export default function CosmicButton({
   const [isLaunching, setIsLaunching] = useState(false);
   const [magneticOffset, setMagneticOffset] = useState({ x: 0, y: 0, textX: 0, textY: 0 });
 
-  // Desktop Magnetic Attraction
+  // Desktop Magnetic Attraction (Only on fine pointer & non-reduced motion)
   useEffect(() => {
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    const isFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isTouch || reducedMotion) return;
+    if (!isFinePointer || reducedMotion) return;
+
+    let rafId: number | null = null;
 
     const handleMouseMove = (e: MouseEvent) => {
       const el = containerRef.current;
       if (!el) return;
 
-      const rect = el.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
+          const rect = el.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
 
-      const dist = Math.hypot(e.clientX - centerX, e.clientY - centerY);
-      const magnetRadius = 90;
+          const dist = Math.hypot(e.clientX - centerX, e.clientY - centerY);
+          const magnetRadius = 80;
 
-      if (dist < magnetRadius) {
-        const pull = 1 - dist / magnetRadius;
-        const deltaX = (e.clientX - centerX) * pull * 0.18;
-        const deltaY = (e.clientY - centerY) * pull * 0.18;
-        setMagneticOffset({
-          x: deltaX,
-          y: deltaY,
-          textX: deltaX * 0.45,
-          textY: deltaY * 0.45,
+          if (dist < magnetRadius) {
+            const pull = 1 - dist / magnetRadius;
+            const deltaX = (e.clientX - centerX) * pull * 0.15;
+            const deltaY = (e.clientY - centerY) * pull * 0.15;
+            setMagneticOffset({
+              x: deltaX,
+              y: deltaY,
+              textX: deltaX * 0.4,
+              textY: deltaY * 0.4,
+            });
+          } else {
+            setMagneticOffset({ x: 0, y: 0, textX: 0, textY: 0 });
+          }
+          rafId = null;
         });
-      } else {
-        setMagneticOffset({ x: 0, y: 0, textX: 0, textY: 0 });
       }
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement & HTMLButtonElement>) => {
     if (isLaunching) return;
 
-    // Trigger visual launch sequence
     setIsLaunching(true);
 
     if (onClick) {
       onClick(e);
     }
 
-    // If it's a real external navigation or internal link without default prevented
     if (href && !e.defaultPrevented) {
       if (isExternal) {
         e.preventDefault();
         setTimeout(() => {
           window.open(href, '_blank', 'noopener,noreferrer');
           setIsLaunching(false);
-        }, 420);
+        }, 300);
       } else {
         e.preventDefault();
         setTimeout(() => {
@@ -95,15 +103,14 @@ export default function CosmicButton({
             window.location.href = href;
           }
           setIsLaunching(false);
-        }, 360);
+        }, 250);
       }
     } else {
-      setTimeout(() => setIsLaunching(false), 500);
+      setTimeout(() => setIsLaunching(false), 400);
     }
   };
 
   const isHeader = variant === 'header';
-  const isCompact = variant === 'compact';
 
   // 6 deterministic star particle positions
   const particles = [
@@ -117,13 +124,8 @@ export default function CosmicButton({
 
   const content = (
     <>
-      {/* Light streak sweep effect on hover */}
       <span className="cosmic-btn-streak" aria-hidden="true" />
-
-      {/* Warp burst flash on click */}
       <span className={`cosmic-btn-warp-pulse ${isLaunching ? 'warp-active' : ''}`} aria-hidden="true" />
-
-      {/* Inner button content */}
       <span
         className="cosmic-btn-inner"
         style={{
@@ -158,15 +160,12 @@ export default function CosmicButton({
         transform: `translate3d(${magneticOffset.x}px, ${magneticOffset.y}px, 0)`,
       }}
     >
-      {/* Ambient background energy aura */}
       <div className="cosmic-btn-aura" aria-hidden="true" />
 
-      {/* Orbit Track & Travelling Particle */}
       <div className="cosmic-btn-orbit" aria-hidden="true">
         <div className="cosmic-orbit-particle" />
       </div>
 
-      {/* Micro Stardust Particles around Button */}
       {!isHeader && (
         <div className="cosmic-btn-particles" aria-hidden="true">
           {particles.map((p, idx) => (

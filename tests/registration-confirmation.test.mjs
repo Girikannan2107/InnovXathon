@@ -6,10 +6,10 @@ import assert from 'node:assert/strict';
 const CONFIG = {
   EVENT_NAME: 'INNOVXATHON 2026',
   SENDER_NAME: 'InnovXathon 2026',
-  REPLY_TO_EMAIL: 'innovxera@kce.ac.in',
+  REPLY_TO_EMAIL: 'stratupclubkic@kce.ac.in',
   ID_PREFIX: 'INX26-A-',
   ID_DIGITS: 4,
-  EVENT_DATE: '16 October 2026',
+  EVENT_DATE: '24 October 2026',
   REPORTING_TIME: '9:00 AM IST',
   VENUE: 'Karpagam College of Engineering, Coimbatore, Tamil Nadu — 641032',
   TEAM_SIZE: 'Up to 4 Members / Team',

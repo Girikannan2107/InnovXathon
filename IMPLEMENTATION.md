@@ -18,12 +18,12 @@ All 28 specification steps and checklist requirements have been methodically com
 
 ### A. Centralized Event Configuration (`lib/event-config.ts`)
 - **Single Source of Truth:** All dates, contacts, deadlines, prize figures, team size constraints, and rules are centralized in a typed schema `EVENT_CONFIG`.
-- **Zero Mock / Fabricated Data:** Verified event details only. Missing public URLs (Google Form, guideline docs) are modeled with safe placeholders (`REPLACE_WITH_OFFICIAL_GOOGLE_FORM_URL`) that trigger informative fallback states instead of 404s or broken links.
+- **Zero Mock / Fabricated Data:** Verified event details only. Missing public URLs (guideline docs, slide templates) are modeled with safe placeholders that trigger informative fallback states instead of 404s or broken links.
 - **Automated Mathematical Validation:**
-  - `sum(prizes.items) === totalPoolAmount` (Verified: ₹25,000 + ₹15,000 + ₹10,000 === ₹50,000).
+  - Total prize pool equals ₹50,000.
   - `sum(preliminaryStage.criteria) === 100%` (30% + 25% + 20% + 15% + 10% === 100%).
   - `sum(finalStage.criteria) === 100%` (20% + 25% + 20% + 15% + 15% + 5% === 100%).
-  - Chronological schedule verification (Opening < Closing <= Shortlist < Event Date).
+  - Chronological schedule verification (Opening: 26 Sep < Closing: 16 Oct <= Shortlist: 20 Oct < Grand Finale: 24 Oct).
 
 ### B. Sticky, Accessible Header (`components/header.tsx`)
 - **Glassmorphic Sticky Nav:** Smooth backdrop blur with scroll-sensitive border styling.
@@ -32,11 +32,11 @@ All 28 specification steps and checklist requirements have been methodically com
 - **Skip-to-Content:** Accessible skip link targeting `#main-content`.
 
 ### C. High-Conversion Hero Section (`components/hero.tsx` & `components/countdown.tsx`)
-- **Above-the-Fold Clarity:** Event Date (16 Oct 2026), Venue (KCE Coimbatore), Team Rule (Up to 4 members), 20 Shortlisted Teams, and Total Prize Pool (₹50,000) are immediately visible.
+- **Above-the-Fold Clarity:** Grand Finale Date (24 Oct 2026), Venue (KCE Coimbatore), Team Rule (Up to 4 members), 20 Shortlisted Teams, and Total Prize Pool (₹50,000) are immediately visible.
 - **Dual Conversion CTAs:**
   1. *Register & Submit Idea* (`target="_blank" rel="noopener noreferrer" data-analytics="hero-register"`)
   2. *View Guidelines* (smooth scroll navigation to `#guidelines`)
-- **Rock-Solid Countdown Timer:** Unambiguous IST timestamp parsing (`2026-10-10T23:59:59+05:30`), SSR hydration-safe, screen-reader live region (`aria-live="polite"`), and non-negative clamping.
+- **Rock-Solid Countdown Timer:** Unambiguous IST timestamp parsing targeting application deadline (`2026-10-16T23:59:59+05:30`), SSR hydration-safe, screen-reader live region (`aria-live="polite"`), and non-negative clamping.
 - **Starfield Optimization:** Auto-pauses on document visibility change, throttles on low-power devices, and disables motion under `prefers-reduced-motion: reduce`.
 
 ### D. Brand & Partner Showcase (`components/brand-strip.tsx`)
@@ -44,17 +44,17 @@ All 28 specification steps and checklist requirements have been methodically com
 - Explicit role hierarchy: "ORGANIZED BY" (`INNOVXERA`), "INSTITUTIONAL PARTNER" (`KCE`), "INNOVATION PARTNER" (`KIC`), "SPONSOR" (`CIRCOR`).
 
 ### E. Comprehensive Event Sections
-- **Key Facts (`components/key-facts.tsx`):** High-contrast cards summarizing pan-India eligibility, team size (up to 4), 20 finalist teams, and ₹500 shortlist-only fee.
+- **Key Facts (`components/key-facts.tsx`):** High-contrast cards summarizing pan-India eligibility, team size (up to 4), 20 finalist teams, attractive prizes worth ₹50,000, and ₹500 shortlist-only fee.
 - **Participant Roadmap (`components/process.tsx`):** 8-stage numbered trajectory clarifying that the ₹500 fee is per shortlisted team, not per person.
-- **Timeline (`components/timeline.tsx`):** Semantic `<time datetime="...">` tags with Active, Completed, and Upcoming milestone badges.
-- **Prizes Podium (`components/prizes.tsx`):** Indian Rupee currency formatting (`Intl.NumberFormat('en-IN')`) with 1st, 2nd, and 3rd rank podium cards.
+- **Timeline (`components/timeline.tsx`):** Semantic `<time datetime="...">` tags with Active, Completed, and Upcoming milestone badges (26 Sep, 16 Oct, 20 Oct, 24 Oct).
+- **Prizes Feature (`components/prizes.tsx`):** Indian Rupee currency formatting with single prominent featured central card: "Attractive Prizes Worth ₹50,000".
 - **Rules & AI Integrity (`components/rules.tsx`):** Prominent AI policy banner stating:
   > *"Participants may use AI tools, but they must clearly disclose where and how AI was used."*
 - **Deck & Pitch Specs (`components/guidelines.tsx`):** Detailed Google Form field breakdown, 10-slide max deck rules, 7 min pitch / 3 min Q&A timing, and template download actions.
 - **Judging Criteria (`components/judging-criteria.tsx`):** Tabbed breakdown between Preliminary Screening and Grand Finale with weighted progress bars.
 - **Accessible FAQ Accordion (`components/faq.tsx`):** Keyboard operable buttons (`Enter`/`Space`), `aria-expanded`, `aria-controls`, and smooth CSS grid transitions.
-- **Venue Coordinates (`components/venue-contact.tsx`):** Full KCE address, reporting time (9:00 AM IST), verified Google Maps button, and clickable `tel:` and `mailto:` links.
-- **Results (`components/results.tsx`):** Clean fallback state showing scheduled publication (16 Oct 2026, 5:00 PM IST) with no fake winners.
+- **Venue & Coordinator Coordinates (`components/venue-contact.tsx`):** Full KCE address, Grand Finale date (24 October 2026 at 9:00 AM IST), verified Google Maps button, and official coordinators Lathika M (+91 81220 51205) & Sujeet S (+91 63823 56586) with clickable `tel:` links.
+- **Results (`components/results.tsx`):** Clean fallback state showing scheduled publication (24 Oct 2026, 5:00 PM IST) with no fake winners.
 - **Trust & Legal Modal (`components/legal-modal.tsx` & `components/footer.tsx`):** Tabbed dialog covering Privacy Notice, IP Ownership, Campus Code of Conduct, AI Disclosure, and Grievance Escalation.
 
 ### F. SEO, Social & Standards Compliance

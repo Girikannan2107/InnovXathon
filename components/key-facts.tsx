@@ -27,7 +27,7 @@ export default function KeyFacts() {
     {
       icon: Trophy,
       title: `${totalPrize} Prize Pool`,
-      description: 'Substantial awards for Winner (₹25,000), Runner-Up (₹15,000), and Second Runner-Up (₹10,000).',
+      description: `Attractive prizes worth ${totalPrize} along with trophies and official certificates of merit.`,
       badge: 'Cash + Trophies',
     },
     {

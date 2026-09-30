@@ -38,7 +38,7 @@ The project uses React, TypeScript, Vinext, Tailwind CSS, and Cloudflare Workers
 
 The official Google Form URL has not yet been supplied. The Register button currently displays a notice. Update its action in `app/page.tsx` once the URL is available.
 
-The detailed closing time, payment method/deadline and final screening procedure still require organizer confirmation. Content follows the supplied revised concept proposal: InnovXathon 2026, 16 October 2026, 9:00 AM, teams of up to four, up to 20 shortlisted teams, and proposed awards of INR 25,000 / 15,000 / 10,000.
+Confirmed schedule: InnovXathon 2026, Grand Finale on 24 October 2026, 9:00 AM IST at Karpagam College of Engineering, teams of up to four students, 20 shortlisted teams, and attractive prizes worth ₹50,000. Registration opens 26 September 2026 and closes 16 October 2026. Shortlist announcement on 20 October 2026.
 
 ## Package contents
 

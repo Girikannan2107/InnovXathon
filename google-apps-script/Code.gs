@@ -25,7 +25,7 @@ const CONFIG = {
   INSTITUTION_NAME: 'Karpagam College of Engineering',
   ORGANIZER_CREDIT: 'INNOVXERA · Karpagam College of Engineering',
   SENDER_NAME: 'InnovXathon 2026',
-  REPLY_TO_EMAIL: 'innovxera@kce.ac.in',
+  REPLY_TO_EMAIL: 'stratupclubkic@kce.ac.in',
   ORGANIZER_EMAIL: 'stratupclubkic@kce.ac.in',
 
   // Application ID Formatting
@@ -38,7 +38,7 @@ const CONFIG = {
   AUDIT_LOG_SHEET: '16_AUDIT_LOG',
 
   // Event Details for Email Body
-  EVENT_DATE: '16 October 2026',
+  EVENT_DATE: '24 October 2026',
   REPORTING_TIME: '9:00 AM IST',
   VENUE: 'Karpagam College of Engineering, Coimbatore, Tamil Nadu — 641032',
   TEAM_SIZE: 'Up to 4 Members / Team',
@@ -524,7 +524,7 @@ IMPORTANT INFORMATION
 • This email confirms that your application has been received successfully.
 • It does NOT mean your team has been shortlisted.
 • Applications will be evaluated by the InnovXathon jury and organizing committee.
-• Shortlisted teams will be informed separately through this registered Team Leader email on 12 October 2026.
+• Shortlisted teams will be informed separately through this registered Team Leader email on 20 October 2026.
 • If shortlisted, the team will proceed to slot confirmation and the applicable ₹500 team registration process.
 
 ==================================================
@@ -679,7 +679,7 @@ function buildHtmlEmail(data) {
                       This email confirms that your initial idea submission has been received. <strong>It does NOT indicate that your team has been shortlisted.</strong>
                     </p>
                     <p style="margin: 0; font-size: 12.5px; color: #94A3B8; line-height: 1.5;">
-                      All submissions will undergo screening by our expert jury panel. Shortlisted teams will receive an official selection notification on <strong>12 October 2026</strong> with slot confirmation instructions and the applicable ₹500 team fee details.
+                      All submissions will undergo screening by our expert jury panel. Shortlisted teams will receive an official selection notification on <strong>20 October 2026</strong> with slot confirmation instructions and the applicable ₹500 team fee details.
                     </p>
                   </td>
                 </tr>

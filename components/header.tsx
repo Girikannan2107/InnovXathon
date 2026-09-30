@@ -313,7 +313,7 @@ export default function Header({ onOpenGuidelines: _onOpenGuidelines, onOpenRegi
               </CosmicButton>
             )}
             <p className="mobile-drawer-note">
-              16 Oct 2026 · KCE Coimbatore · Up to 4 Members / Team
+              24 Oct 2026 · KCE Coimbatore · Up to 4 Members / Team
             </p>
           </div>
         </div>

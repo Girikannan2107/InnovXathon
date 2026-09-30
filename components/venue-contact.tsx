@@ -2,7 +2,7 @@
 
 import { EVENT_CONFIG } from '@/lib/event-config';
 import { useScrollReveal } from '@/lib/use-scroll-reveal';
-import { MapPin, Mail, Phone, ExternalLink, Navigation, Clock, Building2 } from 'lucide-react';
+import { MapPin, Mail, Phone, ExternalLink, Navigation, Clock, Building2, User } from 'lucide-react';
 
 export default function VenueContact() {
   const venue = EVENT_CONFIG.venue;
@@ -24,7 +24,7 @@ export default function VenueContact() {
           <span className="section-title-gradient">Coimbatore, Tamil Nadu.</span>
         </h2>
         <p className="section-lead">
-          Connect with the organizing committee and navigate directly to the campus venue.
+          Connect with the official event coordinators and navigate directly to the campus venue.
         </p>
       </div>
 
@@ -51,7 +51,7 @@ export default function VenueContact() {
 
           <div className="venue-reporting-block">
             <Clock size={18} className="text-[#6484ff] flex-shrink-0" aria-hidden="true" />
-            <span>Event Date & Reporting: <strong>{EVENT_CONFIG.schedule.eventDateDisplay} at {EVENT_CONFIG.schedule.reportingTimeDisplay}</strong></span>
+            <span>Grand Finale & Reporting: <strong>{EVENT_CONFIG.schedule.eventDateDisplay} at {EVENT_CONFIG.schedule.reportingTimeDisplay}</strong></span>
           </div>
 
           <p className="venue-travel-notes">{venue.travelNotes}</p>
@@ -77,32 +77,43 @@ export default function VenueContact() {
         >
           <div className="venue-card-header">
             <div className="venue-icon-circle">
-              <Mail size={24} className="text-[#6484ff]" aria-hidden="true" />
+              <Phone size={24} className="text-[#6484ff]" aria-hidden="true" />
             </div>
             <div>
-              <h3 className="venue-name">Organizing Committee</h3>
-              <p className="venue-hall">{contacts.coordinatorName}</p>
+              <h3 className="venue-name">Event Coordinators</h3>
+              <p className="venue-hall">INNOVXERA Student Organizing Committee</p>
             </div>
           </div>
 
+          {/* Coordinators Grid (Side-by-side on desktop, vertical on mobile) */}
+          <div className="coordinators-grid" aria-label="Event Coordinators Contact Details">
+            {contacts.coordinators.map((coord) => (
+              <a
+                key={coord.name}
+                href={coord.telHref}
+                className="coordinator-card-item contact-item-link"
+                aria-label={`Call ${coord.name} at ${coord.phone}`}
+              >
+                <div className="contact-item-icon">
+                  <User size={18} className="text-[#ff6b00]" aria-hidden="true" />
+                </div>
+                <div className="contact-item-details">
+                  <span className="contact-label">{coord.name}</span>
+                  <strong className="contact-value">{coord.phone}</strong>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Official Email */}
           <div className="contact-methods-list">
-            <a href={`mailto:${contacts.primaryEmail}`} className="contact-item-link">
+            <a href={`mailto:${contacts.primaryEmail}`} className="contact-item-link" aria-label={`Email ${contacts.primaryEmail}`}>
               <div className="contact-item-icon">
-                <Mail size={18} className="text-[#ff6b00]" aria-hidden="true" />
+                <Mail size={18} className="text-[#6484ff]" aria-hidden="true" />
               </div>
               <div className="contact-item-details">
                 <span className="contact-label">Official Inquiries & Support</span>
                 <strong className="contact-value">{contacts.primaryEmail}</strong>
-              </div>
-            </a>
-
-            <a href={`tel:${contacts.primaryPhoneClean}`} className="contact-item-link">
-              <div className="contact-item-icon">
-                <Phone size={18} className="text-[#6484ff]" aria-hidden="true" />
-              </div>
-              <div className="contact-item-details">
-                <span className="contact-label">Student Coordinator Helpline</span>
-                <strong className="contact-value">{contacts.primaryPhone}</strong>
               </div>
             </a>
           </div>

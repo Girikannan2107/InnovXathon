@@ -115,5 +115,5 @@ The script automatically provisions and maintains two structured sheets:
 
 - **Subject**: `InnovXathon 2026 — Application Successfully Submitted | {{APPLICATION_ID}}`
 - **Sender Name**: `InnovXathon 2026`
-- **Reply-To**: `innovxera@kce.ac.in`
+- **Reply-To**: `stratupclubkic@kce.ac.in`
 - **Visual Identity**: Dark theme `#050811` / `#0D1222` with `#FF7300` accents, clear `SUBMITTED` status pill, application parameters, explicit warning that submission does not guarantee shortlisting, and key event parameters.

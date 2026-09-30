@@ -19,9 +19,9 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    const isFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isTouch || prefersReducedMotion) return;
+    if (!isFinePointer || prefersReducedMotion || window.innerWidth < 768) return;
 
     let targetX = 0;
     let targetY = 0;
@@ -184,7 +184,7 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
           {/* 5. Event Reporting / Venue Micro-Info */}
           <div className="unified-micro-info">
             <div className="micro-item">
-              <Calendar size={13} aria-hidden="true" className="text-zinc-400" />
+              <Calendar size={13} aria-hidden="true" className="text-zinc-400 flex-shrink-0" />
               <span>
                 {EVENT_CONFIG.schedule.eventDateDisplay} · Reporting at {EVENT_CONFIG.schedule.reportingTimeDisplay}
               </span>
@@ -196,7 +196,7 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
             </a>
 
             <div className="micro-item">
-              <MapPin size={13} aria-hidden="true" className="text-zinc-400" />
+              <MapPin size={13} aria-hidden="true" className="text-zinc-400 flex-shrink-0" />
               <span>KCE Coimbatore · Offline</span>
             </div>
           </div>

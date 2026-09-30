@@ -4,17 +4,9 @@ import { EVENT_CONFIG, validateEventConfiguration } from '../lib/event-config.ts
 import { formatINR, isPlaceholderUrl } from '../lib/utils.ts';
 
 describe('INNOVXATHON 2026 - Event Configuration Integrity', () => {
-  test('Prize pool sum must strictly equal the total pool amount', () => {
-    const sumIndividualPrizes = EVENT_CONFIG.prizes.items.reduce(
-      (acc, item) => acc + item.amount,
-      0
-    );
-    assert.equal(
-      sumIndividualPrizes,
-      EVENT_CONFIG.prizes.totalPoolAmount,
-      `Sum of prizes (₹${sumIndividualPrizes}) does not match total pool (₹${EVENT_CONFIG.prizes.totalPoolAmount})`
-    );
+  test('Prize pool amount must strictly equal ₹50,000', () => {
     assert.equal(EVENT_CONFIG.prizes.totalPoolAmount, 50000);
+    assert.equal(EVENT_CONFIG.metadata.totalPrizePool, 50000);
   });
 
   test('Preliminary judging criteria weights must total exactly 100%', () => {
@@ -47,7 +39,7 @@ describe('INNOVXATHON 2026 - Event Configuration Integrity', () => {
     assert.equal(validation.errors.length, 0);
   });
 
-  test('Schedule timestamps must be valid ISO 8601 strings and in chronological sequence', () => {
+  test('Schedule timestamps must be valid ISO 8601 strings and in chronological sequence (Sep 26 -> Oct 16 -> Oct 20 -> Oct 24)', () => {
     const regOpen = new Date(EVENT_CONFIG.schedule.registrationOpensISO).getTime();
     const regClose = new Date(EVENT_CONFIG.schedule.registrationClosesISO).getTime();
     const shortlist = new Date(EVENT_CONFIG.schedule.shortlistAnnouncementISO).getTime();
@@ -58,9 +50,20 @@ describe('INNOVXATHON 2026 - Event Configuration Integrity', () => {
     assert.ok(!isNaN(shortlist), 'shortlistAnnouncementISO is not a valid date');
     assert.ok(!isNaN(eventDate), 'eventDateISO is not a valid date');
 
-    assert.ok(regOpen < regClose, 'Registration open date must precede close date');
-    assert.ok(regClose <= shortlist, 'Registration close date must precede shortlist announcement');
-    assert.ok(shortlist < eventDate, 'Shortlist announcement must precede event date');
+    assert.ok(regOpen < regClose, 'Registration open date (26 Sep) must precede close date (16 Oct)');
+    assert.ok(regClose <= shortlist, 'Registration close date (16 Oct) must precede shortlist announcement (20 Oct)');
+    assert.ok(shortlist < eventDate, 'Shortlist announcement (20 Oct) must precede Grand Finale (24 Oct)');
+  });
+
+  test('Coordinators must match official contact specifications', () => {
+    assert.equal(EVENT_CONFIG.contacts.coordinators.length, 2);
+    assert.equal(EVENT_CONFIG.contacts.coordinators[0].name, 'Lathika M');
+    assert.equal(EVENT_CONFIG.contacts.coordinators[0].phone, '+91 81220 51205');
+    assert.equal(EVENT_CONFIG.contacts.coordinators[0].telHref, 'tel:+918122051205');
+
+    assert.equal(EVENT_CONFIG.contacts.coordinators[1].name, 'Sujeet S');
+    assert.equal(EVENT_CONFIG.contacts.coordinators[1].phone, '+91 63823 56586');
+    assert.equal(EVENT_CONFIG.contacts.coordinators[1].telHref, 'tel:+916382356586');
   });
 
   test('Currency formatter should output standard Indian Rupee notation', () => {

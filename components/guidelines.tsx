@@ -127,13 +127,12 @@ export default function Guidelines() {
           <div className="guideline-actions">
             <a
               href={isTemplatePlaceholder ? '#' : EVENT_CONFIG.links.slideTemplateUrl}
+              download={isTemplatePlaceholder ? undefined : "INNOVXATHON '26 Template.pptx"}
               onClick={handleTemplateClick}
               className={`btn-action-outline ${isTemplatePlaceholder ? 'btn-placeholder' : ''}`}
-              target={isTemplatePlaceholder ? undefined : '_blank'}
-              rel="noopener noreferrer"
             >
               <Download size={16} aria-hidden="true" />
-              <span>{isTemplatePlaceholder ? 'Download Slide Template (TBA)' : 'Download Slide Template'}</span>
+              <span>{isTemplatePlaceholder ? 'Download Slide Template (TBA)' : 'Download Slide Template (.pptx)'}</span>
             </a>
 
             <a

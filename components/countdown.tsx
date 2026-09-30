@@ -100,8 +100,8 @@ export default function Countdown({
     return (
       <output className={`countdown-container countdown-expired block ${className}`}>
         <span className="expired-badge">Registration Status</span>
-        <strong className="expired-text">Registration Closed</strong>
-        <p className="expired-sub">Stay tuned for the shortlist announcement on 12 Oct 2026.</p>
+        <strong className="expired-text">Applications Closed</strong>
+        <p className="expired-sub">Stay tuned for the shortlist announcement on {EVENT_CONFIG.schedule.shortlistAnnouncementDisplay}.</p>
       </output>
     );
   }

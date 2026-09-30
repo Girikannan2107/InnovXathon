@@ -7,8 +7,10 @@ const smooth = (value: number) => value * value * (3 - 2 * value);
 
 export default function ParticleRegister({
   onRegister,
+  buttonText = 'Submit',
 }: {
   onRegister: () => void;
+  buttonText?: string;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,7 +22,7 @@ export default function ParticleRegister({
     const button = buttonRef.current;
     if (!stage || !canvas || !button) return;
 
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('2d', { alpha: true });
     if (!context) return;
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let width = 0,
@@ -28,14 +30,17 @@ export default function ParticleRegister({
       animation = 0,
       progress = 0,
       inView = false,
-      isPageActive = true;
+      isPageActive = document.visibilityState === 'visible';
     let needsMeasure = true;
+    let isDrawing = false;
     let seed = 731;
     const random = () => {
       seed = (seed * 16807) % 2147483647;
       return (seed - 1) / 2147483646;
     };
-    const particles = Array.from({ length: 320 }, (_, index) => ({
+    const isMobile = window.innerWidth < 640;
+    const particleCount = isMobile ? 120 : 220;
+    const particles = Array.from({ length: particleCount }, (_, index) => ({
       side: index % 2 ? 1 : -1,
       spread: random(),
       vertical: random(),
@@ -50,8 +55,8 @@ export default function ParticleRegister({
       width = stage.clientWidth;
       height = stage.clientHeight;
       const ratio = Math.min(window.devicePixelRatio || 1, 1.25);
-      canvas.width = width * ratio;
-      canvas.height = height * ratio;
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
       context!.setTransform(ratio, 0, 0, ratio, 0, 0);
       const mask = document.createElement('canvas');
       mask.width = Math.ceil(width);
@@ -68,11 +73,12 @@ export default function ParticleRegister({
       ink.font = '500 22px Arial';
       ink.textAlign = 'center';
       ink.textBaseline = 'middle';
-      ink.fillText('Register', width / 2, height / 2 + 1);
+      ink.fillText(buttonText, width / 2, height / 2 + 1);
       const pixels = ink.getImageData(0, 0, mask.width, mask.height).data;
       targets = [];
-      for (let y = 0; y < mask.height; y += 3) {
-        for (let x = 0; x < mask.width; x += 3) {
+      const step = isMobile ? 4 : 3;
+      for (let y = 0; y < mask.height; y += step) {
+        for (let x = 0; x < mask.width; x += step) {
           if (pixels[(y * mask.width + x) * 4 + 3] > 60) targets.push({ x, y });
         }
       }
@@ -97,52 +103,68 @@ export default function ParticleRegister({
 
     const onScroll = () => {
       needsMeasure = true;
+      if (!isDrawing && inView && isPageActive && !motion.matches) {
+        isDrawing = true;
+        animation = requestAnimationFrame(draw);
+      }
     };
 
     const handleVisibilityChange = () => {
       isPageActive = document.visibilityState === 'visible';
+      if (isPageActive && inView && !motion.matches && !isDrawing) {
+        isDrawing = true;
+        animation = requestAnimationFrame(draw);
+      }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     function draw(now: number) {
-      animation = requestAnimationFrame(draw);
-      if (!isPageActive) return;
+      if (!isPageActive || motion.matches) {
+        isDrawing = false;
+        return;
+      }
 
       if (needsMeasure) measure();
-      if (inView) {
-        context!.clearRect(0, 0, width, height);
-        if (!motion.matches && targets.length) {
-          const t = now / 1000;
-          const fade = 1 - smooth(clamp((progress - 0.87) / 0.13));
-          particles.forEach((particle, index) => {
-            const target = targets[(index * 37) % targets.length];
-            const amount = smooth(
-              clamp((progress - particle.delay) / (1 - particle.delay)),
-            );
-            const originX =
-              width / 2 +
-              particle.side * width * (0.34 + particle.spread * 0.15);
-            const originY = height * (0.1 + particle.vertical * 0.8);
-            const arc = Math.sin(amount * Math.PI);
-            const x = originX + (target.x - originX) * amount;
-            const y =
-              originY +
-              (target.y - originY) * amount +
-              arc * Math.sin(particle.phase) * height * 0.3;
-            const alpha = (0.3 + particle.brightness * 0.65) * fade;
-            context!.fillStyle = `rgba(226,239,255,${alpha * (0.82 + Math.sin(t * 1.3 + particle.phase) * 0.18)})`;
-            context!.beginPath();
-            context!.arc(
-              x,
-              y,
-              particle.brightness > 0.95 ? 1.5 : 0.75,
-              0,
-              Math.PI * 2,
-            );
-            context!.fill();
-          });
-        }
+
+      if (!inView) {
+        isDrawing = false;
+        return;
       }
+
+      context!.clearRect(0, 0, width, height);
+      if (targets.length) {
+        const t = now / 1000;
+        const fade = 1 - smooth(clamp((progress - 0.87) / 0.13));
+        particles.forEach((particle, index) => {
+          const target = targets[(index * 37) % targets.length];
+          const amount = smooth(
+            clamp((progress - particle.delay) / (1 - particle.delay)),
+          );
+          const originX =
+            width / 2 +
+            particle.side * width * (0.34 + particle.spread * 0.15);
+          const originY = height * (0.1 + particle.vertical * 0.8);
+          const arc = Math.sin(amount * Math.PI);
+          const x = originX + (target.x - originX) * amount;
+          const y =
+            originY +
+            (target.y - originY) * amount +
+            arc * Math.sin(particle.phase) * height * 0.3;
+          const alpha = (0.3 + particle.brightness * 0.65) * fade;
+          context!.fillStyle = `rgba(226,239,255,${alpha * (0.82 + Math.sin(t * 1.3 + particle.phase) * 0.18)})`;
+          context!.beginPath();
+          context!.arc(
+            x,
+            y,
+            particle.brightness > 0.95 ? 1.5 : 0.75,
+            0,
+            Math.PI * 2,
+          );
+          context!.fill();
+        });
+      }
+
+      animation = requestAnimationFrame(draw);
     }
 
     stage.classList.add('particle-ready');
@@ -153,10 +175,16 @@ export default function ParticleRegister({
     window.addEventListener('resize', onScroll);
     motion.addEventListener('change', onScroll);
     resize();
-    animation = requestAnimationFrame(draw);
+    measure();
+
+    if (inView && !motion.matches) {
+      isDrawing = true;
+      animation = requestAnimationFrame(draw);
+    }
 
     return () => {
-      cancelAnimationFrame(animation);
+      if (animation) cancelAnimationFrame(animation);
+      isDrawing = false;
       observer.disconnect();
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
@@ -170,7 +198,7 @@ export default function ParticleRegister({
     <div className="particle-register" ref={stageRef}>
       <canvas ref={canvasRef} aria-hidden="true" />
       <button ref={buttonRef} className="formed-register" onClick={onRegister}>
-        Register
+        {buttonText}
       </button>
     </div>
   );

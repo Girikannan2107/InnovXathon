@@ -16,7 +16,7 @@ import VenueContact from '@/components/venue-contact';
 import Results from '@/components/results';
 import Footer from '@/components/footer';
 import LegalModal from '@/components/legal-modal';
-import ParticleRegister from '@/app/particle-register';
+import CosmicButton from '@/components/cosmic-button';
 import CosmicSpaceBackground from '@/components/cosmic-space-background';
 import { EVENT_CONFIG } from '@/lib/event-config';
 import { isPlaceholderUrl, trackEvent } from '@/lib/utils';
@@ -94,7 +94,28 @@ export default function Home() {
           </div>
 
           <div className="registration-interactive-box">
-            <ParticleRegister onRegister={handleRegisterTrigger} />
+            {isFormPlaceholder ? (
+              <CosmicButton
+                href="#register"
+                onClick={handleRegisterTrigger}
+                data-analytics="cta-register"
+                variant="primary"
+                className="registration-cta-btn"
+              >
+                Register & Submit Idea
+              </CosmicButton>
+            ) : (
+              <CosmicButton
+                href={EVENT_CONFIG.links.googleFormUrl}
+                isExternal={true}
+                onClick={handleRegisterTrigger}
+                data-analytics="cta-register"
+                variant="primary"
+                className="registration-cta-btn"
+              >
+                Register & Submit Idea
+              </CosmicButton>
+            )}
 
             <div className="reg-meta-badges">
               <span className="reg-badge-item">
@@ -112,7 +133,7 @@ export default function Home() {
                 <div className="text-left">
                   <strong>Registration Link Notice:</strong>
                   <p>
-                    The official Google Form for INNOVXATHON 2026 will be activated for public submissions on <strong>10 September 2026</strong>. Bookmark this page or contact the organizing committee at <a href={`mailto:${EVENT_CONFIG.contacts.primaryEmail}`} className="underline">{EVENT_CONFIG.contacts.primaryEmail}</a> for early inquiries.
+                    The official Google Form for INNOVXATHON 2026 will be activated for public submissions on <strong>{EVENT_CONFIG.schedule.registrationOpensDisplay}</strong>. Bookmark this page or contact the organizing committee at <a href={`mailto:${EVENT_CONFIG.contacts.primaryEmail}`} className="underline">{EVENT_CONFIG.contacts.primaryEmail}</a> for early inquiries.
                   </p>
                 </div>
               </output>

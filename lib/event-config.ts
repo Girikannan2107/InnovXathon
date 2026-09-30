@@ -5,12 +5,12 @@
  * Placeholder values must be prefixed with "REPLACE_WITH_" or clearly labeled.
  */
 
-export interface PrizeItem {
-  rank: number;
-  position: string;
-  amount: number;
-  label: string;
-  perTeam: boolean;
+export interface CoordinatorInfo {
+  name: string;
+  phone: string;
+  phoneClean: string;
+  telHref: string;
+  role?: string;
 }
 
 export interface TimelineItem {
@@ -95,6 +95,7 @@ export interface EventConfiguration {
   };
   contacts: {
     primaryEmail: string;
+    coordinators: CoordinatorInfo[];
     primaryPhone: string;
     primaryPhoneClean: string;
     coordinatorName: string;
@@ -110,7 +111,8 @@ export interface EventConfiguration {
   };
   prizes: {
     totalPoolAmount: number;
-    items: PrizeItem[];
+    title: string;
+    description: string;
     currencyNote: string;
   };
   rulesAndEligibility: {
@@ -199,16 +201,16 @@ export const EVENT_CONFIG: EventConfiguration = {
     shortlistFeePerTeam: 500,
   },
   schedule: {
-    eventDateDisplay: '16 October 2026',
-    eventDateISO: '2026-10-16T09:00:00+05:30',
-    eventEndDateISO: '2026-10-16T18:00:00+05:30',
+    eventDateDisplay: '24 October 2026',
+    eventDateISO: '2026-10-24T09:00:00+05:30',
+    eventEndDateISO: '2026-10-24T18:00:00+05:30',
     reportingTimeDisplay: '9:00 AM IST',
-    registrationOpensDisplay: '10 September 2026',
-    registrationOpensISO: '2026-09-10T00:00:00+05:30',
-    registrationClosesDisplay: '10 October 2026, 11:59 PM IST',
-    registrationClosesISO: '2026-10-10T23:59:59+05:30',
-    shortlistAnnouncementDisplay: '12 October 2026',
-    shortlistAnnouncementISO: '2026-10-12T18:00:00+05:30',
+    registrationOpensDisplay: '26 September 2026',
+    registrationOpensISO: '2026-09-26T00:00:00+05:30',
+    registrationClosesDisplay: '16 October 2026, 11:59 PM IST',
+    registrationClosesISO: '2026-10-16T23:59:59+05:30',
+    shortlistAnnouncementDisplay: '20 October 2026',
+    shortlistAnnouncementISO: '2026-10-20T18:00:00+05:30',
   },
   venue: {
     institutionName: 'Karpagam College of Engineering',
@@ -222,11 +224,27 @@ export const EVENT_CONFIG: EventConfiguration = {
     travelNotes: 'Located 18 km from Coimbatore Junction Railway Station and 26 km from Coimbatore International Airport. Direct bus routes available to Othakkal Mandapam.',
   },
   contacts: {
-    primaryEmail: 'innovxera@kce.ac.in',
-    primaryPhone: '+91 99658 06889',
-    primaryPhoneClean: '+919965806889',
-    coordinatorName: 'INNOVXERA Student Core Team',
-    secondaryCoordinatorName: 'Faculty Coordinator (To be announced)',
+    primaryEmail: 'stratupclubkic@kce.ac.in',
+    coordinators: [
+      {
+        name: 'Lathika M',
+        phone: '+91 81220 51205',
+        phoneClean: '+918122051205',
+        telHref: 'tel:+918122051205',
+        role: 'Event Coordinator',
+      },
+      {
+        name: 'Sujeet S',
+        phone: '+91 63823 56586',
+        phoneClean: '+916382356586',
+        telHref: 'tel:+916382356586',
+        role: 'Event Coordinator',
+      },
+    ],
+    primaryPhone: '+91 81220 51205',
+    primaryPhoneClean: '+918122051205',
+    coordinatorName: 'Lathika M & Sujeet S',
+    secondaryCoordinatorName: 'Sujeet S (+91 63823 56586)',
     instagramUrl: 'https://instagram.com/innovxera',
     linkedinUrl: 'https://linkedin.com/company/innovxera',
   },
@@ -234,35 +252,14 @@ export const EVENT_CONFIG: EventConfiguration = {
     // Official registration link for InnovXathon 2026.
     googleFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfNXPfvexSl6gFxhhMHbd8lVy6qWmKpZNhWU3LWADoq4lGweg/viewform?usp=dialog',
     guidelinesDocUrl: 'REPLACE_WITH_OFFICIAL_GUIDELINES_DOC_URL',
-    slideTemplateUrl: 'REPLACE_WITH_OFFICIAL_SLIDE_TEMPLATE_URL',
+    slideTemplateUrl: '/INNOVXATHON_26_Template.pptx',
     canonicalUrl: 'https://innovxathon.in',
   },
   prizes: {
     totalPoolAmount: 50000,
-    items: [
-      {
-        rank: 1,
-        position: 'Winner',
-        amount: 25000,
-        label: 'First Place Trophy, Certificates & Cash Prize',
-        perTeam: true,
-      },
-      {
-        rank: 2,
-        position: 'Runner-Up',
-        amount: 15000,
-        label: 'Second Place Trophy, Certificates & Cash Prize',
-        perTeam: true,
-      },
-      {
-        rank: 3,
-        position: 'Second Runner-Up',
-        amount: 10000,
-        label: 'Third Place Trophy, Certificates & Cash Prize',
-        perTeam: true,
-      },
-    ],
-    currencyNote: 'All prize amounts are in INR (₹) and awarded per winning team.',
+    title: 'Attractive Prizes Worth ₹50,000',
+    description: 'Pioneering solutions merit grand recognition. Standout student innovators will be awarded cash prizes, prestigious trophies, and official merit credentials.',
+    currencyNote: 'All prize amounts are in INR (₹). In addition, all finalist teams receive official Certificates of Participation.',
   },
   rulesAndEligibility: {
     institutionEligibility: 'Open to bona fide undergraduate and postgraduate students from any recognized college or university in India.',
@@ -393,28 +390,28 @@ export const EVENT_CONFIG: EventConfiguration = {
       id: 'applications-open',
       step: '01',
       title: 'Applications Open',
-      dateDisplay: '10 SEP 2026',
-      dateISO: '2026-09-10T00:00:00+05:30',
+      dateDisplay: '26 Sep 2026',
+      dateISO: '2026-09-26T00:00:00+05:30',
       participantAction: 'Form a team of up to 4 members and submit your idea pitch via the official Google Form.',
       resultOrNext: 'Team leader receives automated submission receipt.',
-      status: 'completed',
+      status: 'upcoming',
     },
     {
       id: 'applications-close',
       step: '02',
       title: 'Applications Close',
-      dateDisplay: '10 OCT 2026',
-      dateISO: '2026-10-10T23:59:59+05:30',
+      dateDisplay: '16 Oct 2026',
+      dateISO: '2026-10-16T23:59:59+05:30',
       participantAction: 'Ensure final pitch deck and idea details are submitted before 11:59 PM IST.',
       resultOrNext: 'Applications enter screening evaluation.',
-      status: 'current',
+      status: 'upcoming',
     },
     {
       id: 'shortlist-announcement',
       step: '03',
       title: 'Shortlist Announcement',
-      dateDisplay: '12 OCT 2026',
-      dateISO: '2026-10-12T18:00:00+05:30',
+      dateDisplay: '20 Oct 2026',
+      dateISO: '2026-10-20T18:00:00+05:30',
       participantAction: 'Check registered email for selection letter; pay ₹500 confirmation fee per team.',
       resultOrNext: 'Slot confirmed for 20 finalist teams.',
       status: 'upcoming',
@@ -422,11 +419,11 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       id: 'grand-finale',
       step: '04',
-      title: 'Grand Finale at KCE',
-      dateDisplay: '16 OCT 2026',
-      dateISO: '2026-10-16T09:00:00+05:30',
+      title: 'Grand Finale',
+      dateDisplay: '24 Oct 2026',
+      dateISO: '2026-10-24T09:00:00+05:30',
       participantAction: 'Report to KCE Coimbatore at 9:00 AM IST with college IDs and laptops for jury presentation.',
-      resultOrNext: 'Winners announced and ₹50,000 prize pool awarded.',
+      resultOrNext: 'Attractive prizes worth ₹50,000 awarded to winners.',
       status: 'upcoming',
     },
   ],
@@ -452,7 +449,7 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       stepNumber: 4,
       title: 'Top 20 Teams Shortlisted',
-      description: 'Up to 20 selected teams receive an official selection notification and confirmation link on 12 October.',
+      description: 'Up to 20 selected teams receive an official selection notification and confirmation link on 20 October.',
       clarification: 'Shortlist published on website & sent via email.',
     },
     {
@@ -476,7 +473,7 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       stepNumber: 8,
       title: 'Awards & Victory Celebration',
-      description: 'Winners announced on stage, receiving ₹50,000 prize pool, trophies, and merit certificates.',
+      description: 'Standout teams announced on stage, receiving attractive prizes worth ₹50,000, trophies, and merit certificates.',
       clarification: 'Awards presented on event day.',
     },
   ],
@@ -527,7 +524,7 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       category: 'Prizes & Fees',
       question: 'Who needs to pay the ₹500 fee, and is it per team or per person?',
-      answer: 'The ₹500 fee is payable ONLY by the top 20 shortlisted teams who receive an official selection email on 12 October. It is ₹500 per team in total (not per person). Non-shortlisted applicants do not pay anything.',
+      answer: 'The ₹500 fee is payable ONLY by the top 20 shortlisted teams who receive an official selection email on 20 October. It is ₹500 per team in total (not per person). Non-shortlisted applicants do not pay anything.',
     },
     {
       category: 'Eligibility',
@@ -542,12 +539,12 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       category: 'Submissions',
       question: 'Is a working prototype mandatory?',
-      answer: 'A functional prototype is not mandatory for initial shortlisting. However, for the final pitch on 16 October, having a working prototype, video demonstration, or interactive UI mockup will significantly strengthen your scoring in the technical execution criterion.',
+      answer: 'A functional prototype is not mandatory for initial shortlisting. However, for the final pitch on 24 October, having a working prototype, video demonstration, or interactive UI mockup will significantly strengthen your scoring in the technical execution criterion.',
     },
     {
       category: 'Registration',
       question: 'Can a team edit their submission after submitting the Google Form?',
-      answer: 'Yes, Google Forms allows editing responses until the submission deadline (10 October 2026, 11:59 PM IST) as long as you use the same Google account.',
+      answer: 'Yes, Google Forms allows editing responses until the submission deadline (16 October 2026, 11:59 PM IST) as long as you use the same Google account.',
     },
     {
       category: 'Event Day',
@@ -557,12 +554,12 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       category: 'Event Day',
       question: 'Where and when does the event take place?',
-      answer: 'The event takes place on 16 October 2026 at Karpagam College of Engineering (KCE), Coimbatore. Reporting time is 9:00 AM IST sharp.',
+      answer: 'The event takes place on 24 October 2026 at Karpagam College of Engineering (KCE), Coimbatore. Reporting time is 9:00 AM IST sharp.',
     },
     {
       category: 'Event Day',
       question: 'Will all participants receive certificates?',
-      answer: 'Yes, all members of shortlisted teams who present on event day will receive official Certificates of Participation. Winners and runners-up will receive Certificates of Merit along with their trophies and cash prizes.',
+      answer: 'Yes, all members of shortlisted teams who present on event day will receive official Certificates of Participation. Standout teams will receive Certificates of Merit along with their trophies and cash prizes.',
     },
   ],
   legal: {
@@ -571,14 +568,39 @@ export const EVENT_CONFIG: EventConfiguration = {
     codeOfConduct: 'INNOVXATHON is committed to providing a safe, inclusive, harassment-free environment for all participants, judges, mentors, and volunteers regardless of gender, sexual orientation, disability, physical appearance, race, or religion.',
     aiDisclosurePolicy: 'Transparency is a core value of INNOVXATHON. Participants are encouraged to leverage state-of-the-art AI tooling ethically, provided all prompt engineering, synthesis, and model assistance are openly documented.',
     cancellationPolicy: 'If the event schedule is altered due to unforeseen administrative or force majeure circumstances, confirmed teams will be notified immediately via email and the website with updated schedules.',
-    grievanceChannel: 'For any disputes, evaluation queries, or harassment reports, participants may reach out directly to innovxera@kce.ac.in. All inquiries will be handled confidentially by the faculty advisory board.',
+    grievanceChannel: 'For any disputes, evaluation queries, or harassment reports, participants may reach out directly to stratupclubkic@kce.ac.in. All inquiries will be handled confidentially by the faculty advisory board.',
   },
   results: {
     isPublished: false,
-    expectedPublishDateTime: '16 October 2026, 5:00 PM IST',
+    expectedPublishDateTime: '24 October 2026, 5:00 PM IST',
     winners: [],
   },
 };
+
+export type EventPhase =
+  | 'COMING_SOON'
+  | 'APPLICATIONS_OPEN'
+  | 'APPLICATIONS_CLOSED'
+  | 'UNDER_REVIEW'
+  | 'SHORTLIST_ANNOUNCED'
+  | 'GRAND_FINALE'
+  | 'EVENT_COMPLETED';
+
+export function getEventPhase(now: Date = new Date()): EventPhase {
+  const current = now.getTime();
+  const regOpen = new Date(EVENT_CONFIG.schedule.registrationOpensISO).getTime();
+  const regClose = new Date(EVENT_CONFIG.schedule.registrationClosesISO).getTime();
+  const shortlist = new Date(EVENT_CONFIG.schedule.shortlistAnnouncementISO).getTime();
+  const finaleStart = new Date(EVENT_CONFIG.schedule.eventDateISO).getTime();
+  const finaleEnd = new Date(EVENT_CONFIG.schedule.eventEndDateISO).getTime();
+
+  if (current < regOpen) return 'COMING_SOON';
+  if (current <= regClose) return 'APPLICATIONS_OPEN';
+  if (current < shortlist) return 'UNDER_REVIEW';
+  if (current < finaleStart) return 'SHORTLIST_ANNOUNCED';
+  if (current <= finaleEnd) return 'GRAND_FINALE';
+  return 'EVENT_COMPLETED';
+}
 
 /**
  * Validates critical math and configuration integrity.
@@ -590,11 +612,10 @@ export function validateEventConfiguration(config: EventConfiguration = EVENT_CO
 } {
   const errors: string[] = [];
 
-  // Validate Prize Mathematics
-  const sumPrizes = config.prizes.items.reduce((acc, p) => acc + p.amount, 0);
-  if (sumPrizes !== config.prizes.totalPoolAmount) {
+  // Validate Total Prize Pool
+  if (config.prizes.totalPoolAmount !== 50000) {
     errors.push(
-      `Prize pool mismatch: sum of individual prizes (₹${sumPrizes}) does not equal total prize pool (₹${config.prizes.totalPoolAmount})`
+      `Total prize pool amount (₹${config.prizes.totalPoolAmount}) must equal ₹50,000`
     );
   }
 
