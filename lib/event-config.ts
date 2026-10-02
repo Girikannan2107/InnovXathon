@@ -45,7 +45,7 @@ export interface FAQItem {
 
 export interface OrganizerPartner {
   name: string;
-  role: 'Organized by' | 'Institutional Partner' | 'Innovation Partner' | 'Sponsor';
+  role: 'Organized by' | 'Institutional Partner' | 'Innovation Partner' | 'Event Identity' | 'Sponsor';
   logoPath: string;
   alt: string;
   width: number;
@@ -213,7 +213,7 @@ export const EVENT_CONFIG: EventConfiguration = {
     shortlistAnnouncementISO: '2026-10-20T18:00:00+05:30',
   },
   venue: {
-    institutionName: 'Karpagam College of Engineering',
+    institutionName: 'Karpagam Innovation Centre (KIC), Karpagam College of Engineering',
     hallOrBuilding: 'Auditorium & Innovation Complex (To be confirmed at reporting)',
     fullAddress: 'Myleripalayam Village, Othakkal Mandapam, Coimbatore, Tamil Nadu — 641032',
     city: 'Coimbatore',
@@ -258,7 +258,7 @@ export const EVENT_CONFIG: EventConfiguration = {
   prizes: {
     totalPoolAmount: 50000,
     title: 'Attractive Prizes Worth ₹50,000',
-    description: 'Pioneering solutions merit grand recognition. Standout student innovators will be awarded cash prizes, prestigious trophies, and official merit credentials.',
+    description: 'Pioneering solutions merit grand recognition. Standout student innovators will be awarded cash prizes, prestigious trophies, and official certificates.',
     currencyNote: 'All prize amounts are in INR (₹). In addition, all finalist teams receive official Certificates of Participation.',
   },
   rulesAndEligibility: {
@@ -473,25 +473,16 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       stepNumber: 8,
       title: 'Awards & Victory Celebration',
-      description: 'Standout teams announced on stage, receiving attractive prizes worth ₹50,000, trophies, and merit certificates.',
+      description: 'Standout teams announced on stage, receiving attractive prizes worth ₹50,000, trophies, and certificates.',
       clarification: 'Awards presented on event day.',
     },
   ],
   organizersAndSponsors: [
     {
-      name: 'INNOVXERA Startup Club',
-      role: 'Organized by',
-      logoPath: '/brands/innovxera-cropped.png',
-      alt: 'INNOVXERA Startup Club Logo',
-      width: 655,
-      height: 500,
-      surfaceClass: 'innovxera-surface',
-    },
-    {
       name: 'Karpagam College of Engineering',
       role: 'Institutional Partner',
       logoPath: '/brands/kce-cropped.png',
-      alt: 'Karpagam College of Engineering Logo',
+      alt: 'Karpagam College of Engineering Official Logo',
       width: 7930,
       height: 1014,
       surfaceClass: 'kce-surface',
@@ -499,20 +490,20 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       name: 'Karpagam Innovation Centre',
       role: 'Innovation Partner',
-      logoPath: '/brands/kic-cropped.png',
-      alt: 'Karpagam Innovation Centre (KIC) Logo',
-      width: 335,
-      height: 134,
+      logoPath: '/brands/kic.jpg',
+      alt: 'Karpagam Innovation Centre (KIC) Official Logo',
+      width: 1000,
+      height: 1000,
       surfaceClass: 'kic-surface',
     },
     {
-      name: 'CIRCOR',
-      role: 'Sponsor',
-      logoPath: '/brands/circor-cropped.png',
-      alt: 'CIRCOR Logo',
-      width: 1053,
-      height: 510,
-      surfaceClass: 'circor-surface',
+      name: 'INNOVXERA Startup Club',
+      role: 'Organized by',
+      logoPath: '/brands/innovxera.png',
+      alt: 'INNOVXERA Startup Club Official Logo',
+      width: 2000,
+      height: 600,
+      surfaceClass: 'innovxera-surface',
     },
   ],
   faqs: [
@@ -559,7 +550,7 @@ export const EVENT_CONFIG: EventConfiguration = {
     {
       category: 'Event Day',
       question: 'Will all participants receive certificates?',
-      answer: 'Yes, all members of shortlisted teams who present on event day will receive official Certificates of Participation. Standout teams will receive Certificates of Merit along with their trophies and cash prizes.',
+      answer: 'Yes, all members of shortlisted teams who present on event day will receive official Certificates of Participation. Standout teams will receive certificates along with their trophies and cash prizes.',
     },
   ],
   legal: {

@@ -20,7 +20,7 @@ export default function VenueContact() {
       <div className="section-header">
         <span className="section-eyebrow">09 / THE COORDINATES & REACH</span>
         <h2 id="venue-title" className="section-title">
-          Meet us at KCE. <br />
+          Meet us at KIC, KCE. <br />
           <span className="section-title-gradient">Coimbatore, Tamil Nadu.</span>
         </h2>
         <p className="section-lead">

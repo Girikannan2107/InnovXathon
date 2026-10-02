@@ -61,7 +61,7 @@ export default function Prizes() {
           <span className="section-title-gradient">Attractive Prizes Worth {totalPrize}</span>
         </h2>
         <p className="section-lead">
-          Pioneering solutions merit grand recognition. Standout student innovators will be awarded cash prizes, prestigious trophies, and official merit credentials.
+          Pioneering solutions merit grand recognition. Standout student innovators will be awarded cash prizes, prestigious trophies, and official certificates.
         </p>
       </div>
 
@@ -99,7 +99,7 @@ export default function Prizes() {
               </div>
 
               <h3 className="prize-position-title">ATTRACTIVE PRIZES WORTH {totalPrize.toUpperCase()}</h3>
-              <p className="prize-per-team-tag">Cash Awards · Prestigious Trophies · Merit Certificates</p>
+              <p className="prize-per-team-tag">Cash Awards · Prestigious Trophies · Certificates</p>
               <p className="prize-description-text">
                 Awarded to standout innovation teams presenting at the Grand Finale on {EVENT_CONFIG.schedule.eventDateDisplay} at Karpagam College of Engineering.
               </p>

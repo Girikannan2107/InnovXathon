@@ -77,6 +77,36 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
         INNOVXATHON 2026 — National Student Ideathon at KCE
       </h1>
 
+      {/* ONE AND ONLY ONE Floating Logo Container */}
+      <div className="hero-floating-logos" aria-label="Institutional Branding" role="list">
+        <div className="hero-logo-slot" role="listitem">
+          <img
+            src="/brands/kce-cropped.png"
+            alt="Karpagam College of Engineering"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <div className="hero-logo-slot" role="listitem">
+          <img
+            src="/brands/kic.jpg"
+            alt="Karpagam Innovation Centre"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <div className="hero-logo-slot" role="listitem">
+          <img
+            src="/brands/innovxera.png"
+            alt="INNOVXERA Startup Club"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
+
       <div className="hero-cinematic-stage">
         {/* Horizontally Expanded Hero Artwork Merging into Background */}
         <div

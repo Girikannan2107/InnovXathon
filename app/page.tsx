@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Header from '@/components/header';
 import Hero from '@/components/hero';
-import BrandStrip from '@/components/brand-strip';
 import KeyFacts from '@/components/key-facts';
 import Process from '@/components/process';
 import Timeline from '@/components/timeline';
@@ -63,8 +62,6 @@ export default function Home() {
           }}
           onOpenRegisterNotice={() => setRegisterNoticeOpen(true)}
         />
-
-        <BrandStrip />
 
         <KeyFacts />
 

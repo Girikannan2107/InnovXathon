@@ -27,7 +27,7 @@ export default function KeyFacts() {
     {
       icon: Trophy,
       title: `${totalPrize} Prize Pool`,
-      description: `Attractive prizes worth ${totalPrize} along with trophies and official certificates of merit.`,
+      description: `Attractive prizes worth ${totalPrize} along with trophies and official certificates.`,
       badge: 'Cash + Trophies',
     },
     {
