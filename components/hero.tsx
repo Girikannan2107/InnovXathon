@@ -18,10 +18,16 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
   const rafRef = useRef<number | null>(null);
 
+  const [isDesktopFinePointer, setIsDesktopFinePointer] = useState(false);
+
   useEffect(() => {
     const isFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!isFinePointer || prefersReducedMotion || window.innerWidth < 768) return;
+    const isDesktop = window.innerWidth >= 768;
+
+    setIsDesktopFinePointer(isFinePointer && !prefersReducedMotion && isDesktop);
+
+    if (!isFinePointer || prefersReducedMotion || !isDesktop) return;
 
     let targetX = 0;
     let targetY = 0;
@@ -90,7 +96,7 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
 
         <div className="hero-logo-slot" role="listitem">
           <img
-            src="/brands/kic.jpg"
+            src="/brands/kic-cropped.png"
             alt="Karpagam Innovation Centre"
             loading="eager"
             decoding="async"
@@ -99,7 +105,7 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
 
         <div className="hero-logo-slot" role="listitem">
           <img
-            src="/brands/innovxera.png"
+            src="/brands/innovxera-cropped.png"
             alt="INNOVXERA Startup Club"
             loading="eager"
             decoding="async"
@@ -111,9 +117,9 @@ export default function Hero({ onOpenGuidelines, onOpenRegisterNotice }: HeroPro
         {/* Horizontally Expanded Hero Artwork Merging into Background */}
         <div
           className="hero-artwork-canvas-wrapper"
-          style={{
+          style={isDesktopFinePointer ? {
             transform: `translate3d(calc(-50% + ${parallax.x}px), ${parallax.y}px, 0)`
-          }}
+          } : undefined}
           aria-hidden="true"
         >
           <div className="hero-artwork-glow" />

@@ -55,8 +55,8 @@ export default function CosmicSpaceBackground() {
     const getStarCount = () => {
       const w = window.innerWidth;
       if (motionQuery.matches) return 40;
-      if (w < 640) return 90; // Mobile low
-      if (w < 1024) return 200; // Tablet medium
+      if (w < 768) return 60; // Mobile lightweight
+      if (w < 1024) return 180; // Tablet medium
       return 420; // Desktop high
     };
 

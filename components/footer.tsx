@@ -29,7 +29,7 @@ export default function Footer({ onOpenLegal }: FooterProps) {
           </a>
           <p className="footer-tagline">{EVENT_CONFIG.metadata.tagline}</p>
           <p className="footer-credit">
-            AN INNOVXERA INITIATIVE · KARPAGAM COLLEGE OF ENGINEERING (AUTONOMOUS)
+            AN INNOVXERA INITIATIVE · KARPAGAM INNOVATION CENTRE · KARPAGAM COLLEGE OF ENGINEERING (AUTONOMOUS)
           </p>
         </div>
 
